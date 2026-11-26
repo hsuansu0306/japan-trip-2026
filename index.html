@@ -6,22 +6,21 @@
 <title>2026赴日防災考察手冊｜12/06–12/12</title>
 <style>
   :root {
-    /* 莫蘭迪色系 + 清爽手冊描邊風格 */
     --bg-cream: #F8F5F0;
     --card-bg: #FFFFFF;
     --ink: #323538;
     --ink-muted: #6C7076;
     --border-ink: #383B3F;
 
-    --m-ochre: #E7C87E;      /* 莫蘭迪暖燕麥黃 */
+    --m-ochre: #E7C87E;
     --m-ochre-soft: #FCF5E4;
-    --m-blue: #768FA5;       /* 莫蘭迪霧霾藍 */
+    --m-blue: #768FA5;
     --m-blue-soft: #E9F0F6;
-    --m-sage: #849E87;       /* 莫蘭迪鼠尾草綠 */
+    --m-sage: #849E87;
     --m-sage-soft: #EAF2EB;
-    --m-rose: #CE978B;       /* 莫蘭迪乾燥玫瑰粉 */
+    --m-rose: #CE978B;
     --m-rose-soft: #F8EAE7;
-    --m-plum: #9A8BA0;       /* 莫蘭迪灰紫 */
+    --m-plum: #9A8BA0;
     --m-plum-soft: #F1EDF3;
 
     --shadow-hard: 0 3px 0 #383B3F;
@@ -42,7 +41,7 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Sticky Top Header + Clear Top Navigation Bar */
+  /* Top Sticky Floating Pill Navigation Bar */
   .top-header-wrap {
     position: sticky;
     top: 0;
@@ -50,7 +49,7 @@
     background: rgba(248, 245, 240, 0.94);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    padding: 10px 12px 10px;
+    padding: 10px 12px;
     border-bottom: 1.5px solid #E5DFD6;
   }
 
@@ -480,10 +479,10 @@
     white-space: nowrap;
   }
 
-  /* Personnel */
+  /* Personnel (只保留姓名) */
   .person-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 12px;
     margin-bottom: 14px;
   }
@@ -495,24 +494,22 @@
     border: 2px solid var(--border-ink);
     border-radius: 16px;
     box-shadow: var(--shadow-hard);
-    padding: 13px;
+    padding: 13px 15px;
   }
   .avatar {
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     border: 2px solid var(--border-ink);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: 17px;
+    font-size: 16px;
     color: #FFF;
     flex-shrink: 0;
   }
-  .p-info h4 { margin: 0; font-size: 15.5px; font-weight: 800; }
-  .p-role { font-size: 13px; color: #4A657D; font-weight: 800; margin-top: 2px; }
-  .p-sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+  .p-info h4 { margin: 0; font-size: 16.5px; font-weight: 800; color: var(--ink); }
 
   .contact-row { padding: 9px 0; border-bottom: 1.5px dashed #DDD7CE; font-size: 13px; }
   .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -634,7 +631,7 @@
 </head>
 <body>
 
-<!-- Top Floating Pill Navigation Bar (所有選項固定於上方，手機與電腦皆清楚顯示) -->
+<!-- Top Floating Pill Navigation Bar -->
 <div class="top-header-wrap">
   <nav class="pill-navbar">
     <div class="nav-top-row">
@@ -743,7 +740,7 @@
       </div>
       <div class="contact-row">
         <strong>12/11（五）能登鐵道 震災語り部列車：七尾站 ⇄ 穴水站</strong>
-        <span>去程 601D 七尾 10:00 → 穴水 10:45｜回程 觀光列車2號 穴水 12:09 → 七尾 12:54（下午返回金澤轉乘往東京上野）</span>
+        <span>去程 601D 七尾 10:00 → 穴水 10:45｜回程 觀光列車2號 穴水 12:09 → 七尾 12:54（下午返回金澤後往東京上野）</span>
       </div>
     </div>
   </section>
@@ -789,7 +786,7 @@
       </div>
       <div class="info-line"><strong>郵遞區號：</strong>〒110-0005</div>
       <div class="info-line"><strong>地址：</strong>東京都台東区上野 6-7-21（步行可達京成上野站）</div>
-      <div class="info-line"><strong>備註：</strong>12/12 早上搭乘 11:00–11:43 京成電鐵直達成田機場，交通超方便。</div>
+      <div class="info-line"><strong>備註：</strong>12/12 早上搭乘 11:00–11:43 京成電鐵直達成田機場。</div>
     </div>
   </section>
 
@@ -932,50 +929,42 @@
     <div id="packingContainer"></div>
   </section>
 
-  <!-- PAGE 7: 團員與窗口 (已移除階級) -->
+  <!-- PAGE 7: 團員（只保留姓名）與日方窗口 -->
   <section id="page-people" class="page">
     <div class="sec-header">
       <div class="sec-title-group">
         <div class="sec-icon" style="background:var(--m-plum-soft);">👥</div>
-        <h2>考察團員與日方窗口</h2>
+        <h2>出國人員與日方窗口</h2>
       </div>
-      <span class="sec-hint">內政部消防署（共 4 名）</span>
+      <span class="sec-hint">共 3 名出國人員＋隨行通譯</span>
     </div>
 
     <div class="person-grid">
       <div class="person-card">
         <div class="avatar" style="background:var(--m-blue);">邱</div>
         <div class="p-info">
-          <h4>邱景祥 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">Chiu Jing-Shiang</span></h4>
-          <div class="p-role">災害管理組 組長（團長）</div>
-          <div class="p-sub">總領隊與公務拜會代表</div>
+          <h4>邱景祥</h4>
         </div>
       </div>
 
       <div class="person-card">
         <div class="avatar" style="background:var(--m-sage);">許</div>
         <div class="p-info">
-          <h4>許書銘 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">Hsu Shu-Ming</span></h4>
-          <div class="p-role">災害管理組 科長</div>
-          <div class="p-sub">社區防災與韌性業務</div>
+          <h4>許書銘</h4>
         </div>
       </div>
 
       <div class="person-card">
         <div class="avatar" style="background:var(--m-rose);">蘇</div>
         <div class="p-info">
-          <h4>蘇筱琁 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">Su Hsiao-Hsuan</span></h4>
-          <div class="p-role">災害管理組 視察（承辦人）</div>
-          <div class="p-sub">行程統籌與日方對接</div>
+          <h4>蘇筱琁</h4>
         </div>
       </div>
 
       <div class="person-card">
         <div class="avatar" style="background:var(--m-plum);">譯</div>
         <div class="p-info">
-          <h4>隨行日文通譯 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">1 名</span></h4>
-          <div class="p-role">專業日文口譯人員</div>
-          <div class="p-sub">12/07（一）– 12/11（五）全程陪同</div>
+          <h4>隨行通譯</h4>
         </div>
       </div>
     </div>
@@ -1104,7 +1093,7 @@ const DEFAULT_DAYS = [
     title: "Day 3｜12月8日（二）東京消防廳・本所防災館・餐敘",
     stay: "住宿：ホテル京阪 東京四谷（〒160-0004 東京都新宿区四谷1丁目24）",
     items: [
-      { dep: "11:00", arr: "11:45", trans: "東京地鐵丸之內線 🚇", title: "拜會東京消防廳本部（防災部長面會及意見交換）", loc: "〒100-8119 東京都千代田區大手町 1-3-5（1樓大廳集合）", note: "11:00–11:45 幹部致意與業務意見交換（地域防災力方針、高齡者及外國人宣導策略）。\n窗口：総務課国際業務係 佐伯先生（03-3212-2111 内線2587）", gift: "🎁 送禮：主禮 大鳳梨酥、茶葉｜佐伯：花生糖" },
+      { dep: "11:00", arr: "11:30", trans: "東京地鐵丸之內線 🚇", title: "拜會東京消防廳本部（幹部致意、會面）", loc: "〒100-8119 東京都千代田區大手町 1-3-5（1樓大廳集合）", note: "佐伯先生最新確認排程至 11:45（1樓大廳迎接）。\n窗口：総務課国際業務係 佐伯先生（03-3212-2111 内線2587）", gift: "🎁 送禮：主禮 大鳳梨酥、茶葉｜佐伯：花生糖" },
       { dep: "15:00", arr: "16:45", trans: "東京地鐵 / JR 🚆", title: "參訪東京防災館（本所防災館）防災體驗", loc: "〒130-0003 東京都墨田区横川4丁目6-6", note: "常規防災體驗（VR、地震、煙霧、防災短片）。", gift: "🎁 送禮：主禮 花生糖、茶葉｜解說員：花生糖" },
       { dep: "18:00", arr: "晚間", trans: "東京地鐵 / 步行 🚶", title: "晚餐餐敘：Tenshige", loc: "〒107-0052 東京都港区赤坂3丁目12-10 赤坂サンビル 6階", note: "出席：石川昭政 眾議員、岩澤先生、玉田先生。", gift: "🎁 送禮：石川（威士忌、花生糖）｜岩澤（威士忌、花生糖）｜玉田（茶葉禮盒、花生糖）" }
     ]
@@ -1189,7 +1178,7 @@ const DEFAULT_PACKING = [
   ]}
 ];
 
-const KEY_PREFIX = "morandi_eva_jp_2026_v4_";
+const KEY_PREFIX = "morandi_eva_jp_2026_v5_";
 let tripData = JSON.parse(localStorage.getItem(KEY_PREFIX + "days")) || JSON.parse(JSON.stringify(DEFAULT_DAYS));
 let placeData = JSON.parse(localStorage.getItem(KEY_PREFIX + "places")) || JSON.parse(JSON.stringify(DEFAULT_PLACES));
 let customMaps = JSON.parse(localStorage.getItem(KEY_PREFIX + "maps")) || [];
