@@ -3,26 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>赴日防災考察旅行手冊｜2026.12.06–12.12</title>
+<title>2026赴日防災考察手冊｜12/06–12/12</title>
 <style>
   :root {
-    /* 莫蘭迪色系 Morandi Palette - 豐富但不刺眼 */
-    --bg-oat: #F4F1EC;
-    --card-bg: #FCFBF9;
-    --m-blue: #6D8299;       /* 莫蘭迪霧霾藍 */
-    --m-blue-soft: #E5ECF2;
-    --m-sage: #7E9680;       /* 莫蘭迪鼠尾草綠 */
-    --m-sage-soft: #E6EFE7;
-    --m-rose: #BA8479;       /* 莫蘭迪乾燥玫瑰粉 */
-    --m-rose-soft: #F4E7E4;
-    --m-ochre: #C2A378;      /* 莫蘭迪暖燕麥金 */
-    --m-ochre-soft: #F3ECE0;
-    --m-plum: #8E7F91;       /* 莫蘭迪灰紫 */
-    --m-plum-soft: #ECE8EE;
-    --ink-dark: #3B3E42;
-    --ink-muted: #72767B;
-    --border-soft: #E2DDD5;
-    --shadow-soft: 0 4px 14px rgba(59, 62, 66, 0.07);
+    /* 莫蘭迪色系 + 手冊描邊風格 */
+    --bg-cream: #FAF7F2;
+    --card-bg: #FFFFFF;
+    --ink: #333538;
+    --ink-muted: #6E7278;
+    --border-ink: #333538;
+
+    --m-ochre: #E6C77A;      /* 暖燕麥芥末黃（參考圖選中色調，調柔和） */
+    --m-ochre-soft: #FBF4E2;
+    --m-blue: #7B93A8;       /* 莫蘭迪霧霾藍 */
+    --m-blue-soft: #E9F0F5;
+    --m-sage: #8AA38D;       /* 莫蘭迪鼠尾草綠 */
+    --m-sage-soft: #EAF2EB;
+    --m-rose: #D19A8E;       /* 莫蘭迪乾燥玫瑰粉 */
+    --m-rose-soft: #F7EAE7;
+    --m-plum: #9D8FA3;       /* 莫蘭迪灰紫 */
+    --m-plum-soft: #F0ECF2;
+
+    --shadow-hard: 0 3px 0 #333538;
+    --shadow-hard-sm: 0 2px 0 #333538;
   }
 
   * {
@@ -32,156 +35,238 @@
 
   body {
     margin: 0;
-    padding: 0 0 82px 0;
-    background-color: var(--bg-oat);
-    color: var(--ink-dark);
+    padding: 0 0 40px 0;
+    background-color: var(--bg-cream);
+    color: var(--ink);
     line-height: 1.55;
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Header */
-  header {
-    background: linear-gradient(135deg, #6D8299 0%, #8696A7 55%, #9CA89E 100%);
-    color: #FFFFFF;
-    padding: 18px 16px 15px;
+  /* Floating Pill Top Navbar (參考圖風格) */
+  .top-nav-wrap {
     position: sticky;
-    top: 0;
-    z-index: 50;
-    box-shadow: 0 3px 12px rgba(59, 62, 66, 0.14);
-  }
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-  }
-  .header-badge {
-    font-size: 11px;
-    letter-spacing: 1.2px;
-    background: rgba(255, 255, 255, 0.22);
-    padding: 2px 9px;
-    border-radius: 20px;
-    font-weight: 700;
-  }
-  .header-flight {
-    font-size: 11.5px;
-    opacity: 0.92;
-  }
-  header h1 {
-    margin: 0;
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-  header p {
-    margin: 3px 0 0;
-    font-size: 12.5px;
-    opacity: 0.92;
+    top: 10px;
+    z-index: 80;
+    max-width: 860px;
+    margin: 12px auto 16px;
+    padding: 0 12px;
   }
 
+  .pill-navbar {
+    background: #FFFFFF;
+    border: 2.5px solid var(--border-ink);
+    border-radius: 999px;
+    box-shadow: var(--shadow-hard);
+    padding: 8px 16px 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .brand-area {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--m-rose);
+    border: 2px solid var(--border-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .brand-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 2px 0;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-link-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    padding: 5px 11px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .nav-link-btn:hover {
+    background: var(--bg-cream);
+  }
+  .nav-link-btn.active {
+    background: var(--m-ochre);
+    border-color: var(--border-ink);
+    box-shadow: var(--shadow-hard-sm);
+  }
+
+  /* Main Container */
   .container {
-    max-width: 720px;
+    max-width: 860px;
     margin: 0 auto;
-    padding: 14px 14px 20px;
+    padding: 4px 14px 28px;
   }
 
   .page { display: none; animation: fadeIn 0.2s ease; }
   .page.active { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* Date Pills */
+  /* Section Header (參考圖：圓形圖示 + 標題 + 右側提示) */
+  .sec-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 6px 0 14px;
+    flex-wrap: wrap;
+  }
+  .sec-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--border-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .sec-title-group h2 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .sec-hint {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+
+  /* Day Pills (參考圖：D1・12/06 (日) 膠囊按鈕 + 粗框陰影) */
   .date-tabs {
     display: flex;
-    gap: 8px;
+    gap: 9px;
     overflow-x: auto;
-    padding-bottom: 8px;
+    padding: 2px 2px 10px;
     margin-bottom: 12px;
     scrollbar-width: none;
   }
   .date-tabs::-webkit-scrollbar { display: none; }
+
   .date-pill {
     flex: 0 0 auto;
-    background: var(--card-bg);
-    border: 1.5px solid var(--border-soft);
-    border-radius: 12px;
-    padding: 7px 13px;
-    text-align: center;
+    background: #FFFFFF;
+    border: 2px solid var(--border-ink);
+    border-radius: 999px;
+    box-shadow: var(--shadow-hard);
+    padding: 8px 16px;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--ink);
     cursor: pointer;
-    color: var(--ink-muted);
-    transition: all 0.2s;
+    transition: transform 0.1s ease, background 0.15s ease;
+    white-space: nowrap;
+  }
+  .date-pill:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--border-ink);
   }
   .date-pill.active {
-    background: var(--m-blue);
-    border-color: var(--m-blue);
-    color: #FFF;
-    box-shadow: var(--shadow-soft);
+    background: var(--m-ochre);
+    color: var(--ink);
   }
-  .date-pill .d-num { font-size: 14px; font-weight: 700; display: block; }
-  .date-pill .d-sub { font-size: 11px; opacity: 0.9; }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-ink);
+    border-radius: 16px;
+    box-shadow: var(--shadow-hard);
+    padding: 15px 16px;
+    margin-bottom: 14px;
+  }
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+  }
 
   /* Day Banner */
   .day-banner {
-    background: var(--m-ochre-soft);
-    border-left: 4px solid var(--m-ochre);
-    border-radius: 12px;
+    background: var(--m-blue-soft);
+    border: 2px solid var(--border-ink);
+    border-radius: 14px;
+    box-shadow: var(--shadow-hard-sm);
     padding: 11px 14px;
     margin-bottom: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
   }
-  .day-banner h2 {
-    margin: 0;
-    font-size: 15.5px;
-    color: var(--ink-dark);
-  }
-  .day-banner span {
-    font-size: 12px;
-    color: var(--ink-muted);
-    display: block;
-    margin-top: 2px;
-  }
+  .day-banner .db-title { font-size: 15.5px; font-weight: 800; }
+  .day-banner .db-stay { font-size: 12.5px; color: var(--ink-muted); margin-top: 2px; }
 
   /* Buttons */
-  .btn-primary {
+  .btn-pill {
     background: var(--m-blue);
     color: #FFF;
-    border: none;
-    border-radius: 9px;
-    padding: 7px 12px;
-    font-size: 12.5px;
-    font-weight: 700;
+    border: 2px solid var(--border-ink);
+    border-radius: 999px;
+    box-shadow: var(--shadow-hard-sm);
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 800;
     cursor: pointer;
     white-space: nowrap;
   }
-  .btn-sage { background: var(--m-sage); color: #FFF; border: none; border-radius: 9px; padding: 7px 12px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+  .btn-pill.ochre { background: var(--m-ochre); color: var(--ink); }
+  .btn-pill.sage { background: var(--m-sage); color: #FFF; }
+  .btn-pill.rose { background: var(--m-rose); color: #FFF; }
   .btn-sm {
-    background: var(--bg-oat);
-    border: 1px solid var(--border-soft);
-    color: var(--ink-dark);
-    border-radius: 7px;
+    background: var(--bg-cream);
+    border: 1.5px solid var(--border-ink);
+    color: var(--ink);
+    border-radius: 8px;
     padding: 4px 9px;
     font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
   }
-  .btn-sm:disabled { opacity: 0.4; cursor: not-allowed; }
-  .btn-sm.del { color: #A85B52; border-color: #E6CFCB; background: #FAF3F2; }
-
-  /* Cards */
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-soft);
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow-soft);
-  }
-  .card h3 {
-    margin: 0 0 8px;
-    font-size: 15.5px;
-    color: var(--ink-dark);
-  }
+  .btn-sm:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-sm.del { background: var(--m-rose-soft); color: #8F4237; }
 
   /* Schedule Item */
   .time-row {
@@ -190,44 +275,36 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 6px;
-    margin-bottom: 7px;
+    margin-bottom: 8px;
   }
   .time-badge {
-    background: var(--m-blue-soft);
-    color: #465B70;
-    font-weight: 700;
+    background: var(--m-ochre-soft);
+    border: 1.5px solid var(--border-ink);
+    color: var(--ink);
+    font-weight: 800;
     font-size: 12.5px;
-    padding: 3px 9px;
-    border-radius: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
   }
   .transport-tag {
     background: var(--m-sage-soft);
-    color: #4A634C;
+    border: 1.5px solid var(--border-ink);
+    color: var(--ink);
     font-size: 12px;
-    padding: 3px 9px;
-    border-radius: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
     font-weight: 700;
   }
-  .item-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--ink-dark);
-    margin: 4px 0;
-  }
-  .item-loc {
-    font-size: 13px;
-    color: var(--m-rose);
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
+  .item-title { font-size: 16.5px; font-weight: 800; margin: 4px 0; }
+  .item-loc { font-size: 13px; color: #526A80; font-weight: 700; margin-bottom: 4px; }
   .item-note {
     font-size: 13px;
     color: var(--ink-muted);
-    background: #F7F5F1;
-    border-left: 3px solid var(--m-plum);
-    padding: 8px 10px;
-    border-radius: 6px;
-    margin-top: 6px;
+    background: var(--bg-cream);
+    border-left: 4px solid var(--m-plum);
+    padding: 8px 11px;
+    border-radius: 8px;
+    margin-top: 7px;
     white-space: pre-line;
   }
   .item-actions {
@@ -235,145 +312,185 @@
     justify-content: flex-end;
     gap: 6px;
     margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px dashed var(--border-soft);
+    padding-top: 9px;
+    border-top: 1.5px dashed #D6D0C7;
   }
+
+  /* Flight Cards */
+  .flight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 14px;
+  }
+  .flight-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-cream);
+    border: 1.5px solid var(--border-ink);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 10px 0;
+  }
+  .airport-code { font-size: 22px; font-weight: 900; color: var(--ink); }
+  .airport-name { font-size: 12px; color: var(--ink-muted); font-weight: 700; }
+  .flight-arrow { font-size: 18px; font-weight: 800; color: var(--m-blue); text-align: center; }
+
+  /* Hotel Cards */
+  .hotel-badge {
+    display: inline-block;
+    background: var(--m-plum-soft);
+    border: 1.5px solid var(--border-ink);
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .info-line { font-size: 13.5px; margin: 4px 0; }
+  .info-line strong { color: var(--ink); }
 
   /* Subway Maps */
   .upload-area {
     display: block;
-    border: 2px dashed var(--m-blue);
+    border: 2px dashed var(--border-ink);
     background: var(--m-blue-soft);
-    color: #465B70;
-    border-radius: 12px;
-    padding: 15px;
+    border-radius: 14px;
+    padding: 16px;
     text-align: center;
     cursor: pointer;
     margin-bottom: 12px;
     font-size: 13.5px;
+    font-weight: 700;
   }
   .upload-area input { display: none; }
   .map-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .map-card {
-    border: 1px solid var(--border-soft);
-    border-radius: 12px;
+    border: 2px solid var(--border-ink);
+    border-radius: 14px;
     overflow: hidden;
     background: #FFF;
   }
   .map-card img, .map-card svg { width: 100%; display: block; cursor: zoom-in; }
   .map-card-footer {
     padding: 9px 12px;
-    background: var(--m-plum-soft);
+    background: var(--m-ochre-soft);
+    border-top: 2px solid var(--border-ink);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 12.5px;
-    font-weight: 700;
-    color: #544757;
+    font-weight: 800;
   }
 
   /* Places & Chips */
   .filter-group { margin-bottom: 10px; }
-  .filter-label { font-size: 12px; font-weight: 700; color: var(--ink-muted); margin-bottom: 5px; display: block; }
+  .filter-label { font-size: 12px; font-weight: 800; color: var(--ink-muted); margin-bottom: 5px; display: block; }
   .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
   .chip {
     background: #FFF;
-    border: 1px solid var(--border-soft);
-    border-radius: 20px;
-    padding: 5px 11px;
+    border: 1.5px solid var(--border-ink);
+    border-radius: 999px;
+    padding: 4px 12px;
     font-size: 12px;
-    color: var(--ink-dark);
+    font-weight: 700;
+    color: var(--ink);
     cursor: pointer;
   }
-  .chip.active { background: var(--m-rose); color: #FFF; border-color: var(--m-rose); font-weight: 700; }
-  .chip.area.active { background: var(--m-blue); border-color: var(--m-blue); }
-  .chip.food.active { background: var(--m-sage); border-color: var(--m-sage); }
+  .chip.active { background: var(--m-rose); color: #FFF; }
+  .chip.area.active { background: var(--m-blue); color: #FFF; }
+  .chip.food.active { background: var(--m-sage); color: #FFF; }
 
-  .place-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
-  .tag { font-size: 11.5px; padding: 2px 8px; border-radius: 5px; font-weight: 700; }
-  .tag-cat { background: var(--m-rose-soft); color: #8A5348; }
-  .tag-area { background: var(--m-blue-soft); color: #465B70; }
-  .tag-food { background: var(--m-ochre-soft); color: #7C6038; }
-  .tag-veg { background: var(--m-sage-soft); color: #446146; }
+  .place-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 7px; }
+  .tag { font-size: 11.5px; padding: 2px 9px; border-radius: 999px; font-weight: 800; border: 1.5px solid var(--border-ink); }
+  .tag-cat { background: var(--m-rose-soft); }
+  .tag-area { background: var(--m-blue-soft); }
+  .tag-food { background: var(--m-ochre-soft); }
+  .tag-veg { background: var(--m-sage-soft); }
   .place-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-  .place-header h4 { margin: 0; font-size: 15.5px; color: var(--ink-dark); }
+  .place-header h4 { margin: 0; font-size: 15.5px; font-weight: 800; }
   .btn-gmap {
     background: var(--m-rose);
     color: #FFF;
+    border: 1.5px solid var(--border-ink);
+    box-shadow: var(--shadow-hard-sm);
     text-decoration: none;
     font-size: 12px;
-    font-weight: 700;
-    padding: 5px 10px;
-    border-radius: 8px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
     white-space: nowrap;
   }
 
-  /* Personnel Tab */
+  /* Personnel */
+  .person-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+  }
   .person-card {
     display: flex;
     gap: 12px;
     align-items: center;
-    background: var(--card-bg);
-    border: 1px solid var(--border-soft);
-    border-radius: 14px;
+    background: #FFF;
+    border: 2px solid var(--border-ink);
+    border-radius: 16px;
+    box-shadow: var(--shadow-hard);
     padding: 13px;
-    margin-bottom: 10px;
-    box-shadow: var(--shadow-soft);
   }
   .avatar {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
+    border: 2px solid var(--border-ink);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 16px;
+    font-weight: 800;
+    font-size: 17px;
     color: #FFF;
     flex-shrink: 0;
   }
-  .p-info h4 { margin: 0; font-size: 15.5px; color: var(--ink-dark); }
-  .p-role { font-size: 12.5px; color: var(--m-blue); font-weight: 700; }
+  .p-info h4 { margin: 0; font-size: 15.5px; font-weight: 800; }
+  .p-role { font-size: 12.5px; color: #4A657D; font-weight: 800; }
   .p-sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
 
-  .contact-row {
-    padding: 9px 0;
-    border-bottom: 1px dashed var(--border-soft);
-    font-size: 13px;
-  }
+  .contact-row { padding: 9px 0; border-bottom: 1.5px dashed #DDD7CE; font-size: 13px; }
   .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .contact-row strong { color: var(--ink-dark); }
   .contact-row span { color: var(--ink-muted); display: block; font-size: 12px; margin-top: 2px; }
 
-  /* Packing Checklist Tab */
+  /* Packing Checklist */
   .progress-wrap {
-    background: var(--border-soft);
-    height: 10px;
-    border-radius: 10px;
+    background: #FFF;
+    border: 1.5px solid var(--border-ink);
+    height: 12px;
+    border-radius: 999px;
     overflow: hidden;
-    margin: 8px 0 4px;
+    margin: 8px 0 6px;
   }
   .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--m-sage), var(--m-blue));
+    background: linear-gradient(90deg, var(--m-sage), var(--m-ochre));
     width: 0%;
     transition: width 0.25s ease;
   }
   .pack-cat-title {
-    font-size: 13.5px;
-    font-weight: 700;
-    color: #FFF;
-    padding: 5px 11px;
-    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink);
+    border: 1.5px solid var(--border-ink);
+    padding: 4px 12px;
+    border-radius: 999px;
     display: inline-block;
-    margin-bottom: 8px;
+    margin-bottom: 9px;
   }
   .pack-item {
     display: flex;
     align-items: flex-start;
     gap: 10px;
     padding: 8px 4px;
-    border-bottom: 1px solid #F0ECE6;
+    border-bottom: 1px dashed #E2DDD5;
     cursor: pointer;
   }
   .pack-item:last-child { border-bottom: none; }
@@ -384,70 +501,41 @@
     accent-color: var(--m-sage);
     cursor: pointer;
   }
-  .pack-item.done .pack-text { text-decoration: line-through; color: #A2A6AB; }
-  .pack-text { font-size: 13.5px; flex: 1; }
-  .pack-sub { font-size: 11.5px; color: var(--ink-muted); display: block; }
-
-  /* Bottom Navigation (5 Tabs) */
-  nav.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #FCFBF9;
-    border-top: 1px solid var(--border-soft);
-    display: flex;
-    justify-content: space-around;
-    padding: 7px 2px 9px;
-    z-index: 60;
-    box-shadow: 0 -2px 12px rgba(59, 62, 66, 0.06);
-  }
-  .nav-btn {
-    background: none;
-    border: none;
-    color: var(--ink-muted);
-    font-size: 11.5px;
-    font-weight: 700;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    cursor: pointer;
-    flex: 1;
-    padding: 2px 0;
-  }
-  .nav-btn .ico { font-size: 18px; }
-  .nav-btn.active { color: var(--m-blue); }
+  .pack-item.done .pack-text { text-decoration: line-through; color: #9DA1A6; }
+  .pack-text { font-size: 13.5px; font-weight: 600; flex: 1; }
+  .pack-sub { font-size: 11.5px; font-weight: 400; color: var(--ink-muted); display: block; }
 
   /* Modals */
   .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(40, 44, 48, 0.62);
-    z-index: 100;
+    background: rgba(35, 38, 42, 0.62);
+    z-index: 120;
     align-items: center;
     justify-content: center;
     padding: 16px;
   }
   .modal.open { display: flex; }
   .modal-card {
-    background: var(--card-bg);
-    border-radius: 16px;
+    background: #FFF;
+    border: 2.5px solid var(--border-ink);
+    box-shadow: var(--shadow-hard);
+    border-radius: 18px;
     width: 100%;
     max-width: 440px;
     padding: 18px;
     max-height: 90vh;
     overflow-y: auto;
   }
-  .modal-card h3 { margin: 0 0 12px; color: var(--ink-dark); }
+  .modal-card h3 { margin: 0 0 12px; font-weight: 800; }
   .form-row { margin-bottom: 10px; }
-  .form-row label { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 4px; color: var(--ink-dark); }
+  .form-row label { display: block; font-size: 12.5px; font-weight: 800; margin-bottom: 4px; }
   .form-row input, .form-row select, .form-row textarea {
     width: 100%;
     padding: 8px 10px;
-    border: 1px solid var(--border-soft);
-    border-radius: 8px;
+    border: 1.5px solid var(--border-ink);
+    border-radius: 10px;
     font-size: 14px;
     background: #FFF;
   }
@@ -482,83 +570,203 @@
     margin-left: 5px;
     cursor: pointer;
   }
-  .zoom-stage {
-    flex: 1;
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
+  .zoom-stage { flex: 1; overflow: auto; display: flex; align-items: center; justify-content: center; padding: 16px; }
   #zoomTarget { transition: transform 0.15s ease; transform-origin: center center; max-width: 100%; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-top">
-    <span class="header-badge">TRAVEL HANDBOOK · 115年考察</span>
-    <span class="header-flight">✈️ 松山 ⇄ 羽田</span>
-  </div>
-  <h1>赴日本防災考察旅行手冊</h1>
-  <p>2026/12/06（日）– 12/12（六）｜東京・金澤・能登半島</p>
-</header>
+<!-- Floating Pill Navbar (參考圖版面) -->
+<div class="top-nav-wrap">
+  <nav class="pill-navbar">
+    <div class="brand-area" onclick="switchTab('schedule')">
+      <div class="brand-icon">🚒</div>
+      <span class="brand-title">2026赴日防災考察</span>
+    </div>
+    <div class="nav-links" id="topNavLinks">
+      <button class="nav-link-btn" data-tab="flight" onclick="switchTab('flight')">航班</button>
+      <button class="nav-link-btn active" data-tab="schedule" onclick="switchTab('schedule')">行程</button>
+      <button class="nav-link-btn" data-tab="hotel" onclick="switchTab('hotel')">住宿</button>
+      <button class="nav-link-btn" data-tab="subway" onclick="switchTab('subway')">地鐵</button>
+      <button class="nav-link-btn" data-tab="places" onclick="switchTab('places')">景點</button>
+      <button class="nav-link-btn" data-tab="packing" onclick="switchTab('packing')">待辦</button>
+      <button class="nav-link-btn" data-tab="people" onclick="switchTab('people')">團員</button>
+    </div>
+  </nav>
+</div>
 
 <div class="container">
+
   <!-- PAGE 1: 每日行程 -->
   <section id="page-schedule" class="page active">
+    <div class="sec-header">
+      <div class="sec-title-group">
+        <div class="sec-icon" style="background:var(--m-ochre);">📅</div>
+        <h2>每日考察詳細行程</h2>
+      </div>
+      <span class="sec-hint">點擊切換各天行程</span>
+    </div>
+
     <div class="date-tabs" id="dateTabs"></div>
+
     <div class="day-banner">
       <div>
-        <h2 id="dayTitle"></h2>
-        <span id="dayStay"></span>
+        <div class="db-title" id="dayTitle"></div>
+        <div class="db-stay" id="dayStay"></div>
       </div>
-      <button class="btn-primary" onclick="openScheduleModal()">＋ 新增</button>
+      <button class="btn-pill" onclick="openScheduleModal()">＋ 新增行程</button>
     </div>
+
     <div id="scheduleList"></div>
+
     <div style="text-align:center; margin-top:16px;">
       <button class="btn-sm" onclick="resetDefaultData()">恢復預設行程與清單</button>
     </div>
   </section>
 
-  <!-- PAGE 2: 地鐵與路線圖 -->
-  <section id="page-subway" class="page">
+  <!-- PAGE 2: 航班資訊 -->
+  <section id="page-flight" class="page">
+    <div class="sec-header">
+      <div class="sec-title-group">
+        <div class="sec-icon" style="background:var(--m-blue-soft);">✈️</div>
+        <h2>航班與鐵道移動資訊</h2>
+      </div>
+      <span class="sec-hint">松山 ⇄ 羽田・北陸新幹線</span>
+    </div>
+
+    <div class="flight-grid">
+      <div class="card">
+        <span class="hotel-badge" style="background:var(--m-blue-soft);">去程航班｜2026/12/06（日）</span>
+        <div class="flight-route">
+          <div>
+            <div class="airport-code">TSA</div>
+            <div class="airport-name">臺北松山機場</div>
+          </div>
+          <div class="flight-arrow">✈️<br><span style="font-size:11px; color:var(--ink-muted);">經濟艙 3 位</span></div>
+          <div style="text-align:right;">
+            <div class="airport-code">HND</div>
+            <div class="airport-name">東京羽田機場</div>
+          </div>
+        </div>
+        <div class="info-line"><strong>入境準備：</strong>Visit Japan Web 飯店填寫「160-0004 東京都新宿區四谷 1-24（ホテル京阪 東京四谷）」</div>
+        <div class="info-line"><strong>備註：</strong>羽田機場搭京急線／單軌轉乘至四谷站辦理入住。</div>
+      </div>
+
+      <div class="card">
+        <span class="hotel-badge" style="background:var(--m-rose-soft);">返程航班｜2026/12/12（六）</span>
+        <div class="flight-route">
+          <div>
+            <div class="airport-code">HND</div>
+            <div class="airport-name">東京羽田機場</div>
+          </div>
+          <div class="flight-arrow">✈️<br><span style="font-size:11px; color:var(--ink-muted);">經濟艙 3 位</span></div>
+          <div style="text-align:right;">
+            <div class="airport-code">TSA</div>
+            <div class="airport-name">臺北松山機場</div>
+          </div>
+        </div>
+        <div class="info-line"><strong>返國核銷：</strong>保留登機證、機票購票證明及日本交通領収書。</div>
+        <div class="info-line"><strong>出國報告：</strong>依規定於返國後 3 個月內（116/3/12 前）完成登載。</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:4px;">
+      <h3>🚄 日本國內長途鐵道（新幹線・能登鐵道）</h3>
+      <div class="contact-row">
+        <strong>12/09（三）北陸新幹線：東京站（07:24 發）→ 金澤站（09:44 抵）</strong>
+        <span>06:45 自四谷京阪飯店出發｜下午由金澤站轉乘 IR石川鐵道 / JR七尾線至七尾站</span>
+      </div>
+      <div class="contact-row">
+        <strong>12/11（五）能登鐵道 震災語り部列車：七尾站 ⇄ 穴水站</strong>
+        <span>去程 10:00 七尾 → 10:45 穴水｜回程 12:09 穴水 → 12:54 七尾（下午返回金澤轉新幹線回東京）</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 3: 住宿資訊 -->
+  <section id="page-hotel" class="page">
+    <div class="sec-header">
+      <div class="sec-title-group">
+        <div class="sec-icon" style="background:var(--m-plum-soft);">🏨</div>
+        <h2>考察住宿資訊</h2>
+      </div>
+      <span class="sec-hint">東京 4 晚・七尾 2 晚</span>
+    </div>
+
     <div class="card">
-      <h3>🚇 上傳路線圖 / 車票截圖</h3>
-      <p style="font-size:12.5px; color:var(--ink-muted); margin:0 0 10px;">可上傳東京地鐵圖、北陸新幹線車票或能登鐵道時刻表，點擊圖片可全螢幕放大查看。</p>
+      <span class="hotel-badge" style="background:var(--m-ochre-soft);">12/06（日）– 12/09（三）｜3 晚</span>
+      <div class="place-header">
+        <h3>ホテル京阪 東京四谷（Hotel Keihan Tokyo Yotsuya）</h3>
+        <a class="btn-gmap" href="https://www.google.com/maps/search/?api=1&query=ホテル京阪東京四谷" target="_blank" rel="noopener">地圖 ↗</a>
+      </div>
+      <div class="info-line"><strong>郵遞區號：</strong>160-0004</div>
+      <div class="info-line"><strong>地址：</strong>東京都新宿区四谷 1-24（JR・東京地鐵丸之內線「四谷站」步行約 3 分鐘）</div>
+      <div class="info-line"><strong>電話：</strong>03-5379-1003（+81-3-5379-1003）</div>
+      <div class="info-line"><strong>房型備註：</strong>禁菸房｜12/09 早上 06:45 退房出發往東京站。</div>
+    </div>
+
+    <div class="card">
+      <span class="hotel-badge" style="background:var(--m-sage-soft);">12/09（三）– 12/11（五）｜2 晚</span>
+      <div class="place-header">
+        <h3>ホテルルートイン七尾駅東（Hotel Route Inn Nanao Ekihigashi）</h3>
+        <a class="btn-gmap" href="https://www.google.com/maps/search/?api=1&query=ホテルルートイン七尾駅東" target="_blank" rel="noopener">地圖 ↗</a>
+      </div>
+      <div class="info-line"><strong>位置：</strong>石川縣七尾市（JR 七尾站東口附近）</div>
+      <div class="info-line"><strong>房型備註：</strong>禁菸單人房｜12/10 早上 09:00 のと復興タクシー於飯店大廳接送。</div>
+    </div>
+
+    <div class="card">
+      <span class="hotel-badge" style="background:var(--m-blue-soft);">12/11（五）– 12/12（六）｜1 晚</span>
+      <h3>東京都內飯店（返程前一晚）</h3>
+      <div class="info-line"><strong>備註：</strong>12/11 下午由七尾→金澤轉乘北陸新幹線返回東京入住，隔日前往羽田機場返台。</div>
+    </div>
+  </section>
+
+  <!-- PAGE 4: 地鐵與路線圖 -->
+  <section id="page-subway" class="page">
+    <div class="sec-header">
+      <div class="sec-title-group">
+        <div class="sec-icon" style="background:var(--m-sage-soft);">🚇</div>
+        <h2>地鐵與交通路線圖</h2>
+      </div>
+      <span class="sec-hint">可上傳圖片並放大查看</span>
+    </div>
+
+    <div class="card">
+      <h3>📷 上傳自訂路線圖 / 車票截圖</h3>
       <label class="upload-area">
         <input type="file" accept="image/*" onchange="handleMapUpload(event)" />
-        <strong>📷 點擊選擇圖片上傳（JPG / PNG）</strong>
+        點擊選擇圖片上傳（支援東京地鐵圖、新幹線車票截圖）
       </label>
       <div class="map-grid" id="customMapGrid"></div>
     </div>
 
     <div class="card">
-      <h3>🗺️ 考察重點交通路線示意圖（點擊放大）</h3>
+      <h3>🗺️ 內建考察重點路線示意圖（點擊放大）</h3>
       <div class="map-grid">
         <div class="map-card">
           <div onclick="openZoomSvg('tokyoSvg')" id="tokyoSvg">
-            <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" style="background:#F4F1EC;">
-              <rect x="10" y="10" width="580" height="230" rx="12" fill="#FCFBF9" stroke="#D5CFC6" stroke-width="2"/>
-              <text x="26" y="38" font-size="15.5" font-weight="bold" fill="#3B3E42">東京考察重點地鐵路線（丸之內線・JR中央線）</text>
-              <line x1="50" y1="100" x2="540" y2="100" stroke="#BA8479" stroke-width="6" stroke-linecap="round"/>
-              <text x="50" y="78" font-size="12" font-weight="bold" fill="#BA8479">東京地鐵 丸之內線</text>
-              <circle cx="80" cy="100" r="8" fill="#FFF" stroke="#BA8479" stroke-width="4"/>
-              <text x="55" y="125" font-size="12" font-weight="bold" fill="#3B3E42">方南町站</text>
-              <text x="36" y="141" font-size="10.5" fill="#72767B">12/7 環七地下調節池</text>
-              <circle cx="235" cy="100" r="8" fill="#FFF" stroke="#BA8479" stroke-width="4"/>
-              <text x="218" y="125" font-size="12" font-weight="bold" fill="#3B3E42">新宿站</text>
-              <circle cx="375" cy="100" r="9" fill="#6D8299" stroke="#BA8479" stroke-width="4"/>
-              <text x="348" y="125" font-size="12" font-weight="bold" fill="#6D8299">四谷站(京阪飯店)</text>
-              <circle cx="515" cy="100" r="8" fill="#FFF" stroke="#BA8479" stroke-width="4"/>
-              <text x="485" y="125" font-size="12" font-weight="bold" fill="#3B3E42">大手町/東京站</text>
-              <text x="472" y="141" font-size="10.5" fill="#72767B">12/8 東京消防廳本部</text>
-              <line x1="235" y1="190" x2="515" y2="190" stroke="#C2A378" stroke-width="5" stroke-dasharray="8,4"/>
-              <text x="235" y="173" font-size="12" font-weight="bold" fill="#9A7B4F">JR 中央線快速（四谷 ⇄ 東京站約 10 分鐘，轉北陸新幹線）</text>
-              <circle cx="375" cy="190" r="7" fill="#FFF" stroke="#C2A378" stroke-width="3"/>
-              <text x="360" y="213" font-size="11" fill="#3B3E42">JR四谷</text>
-              <circle cx="515" cy="190" r="7" fill="#FFF" stroke="#C2A378" stroke-width="3"/>
-              <text x="498" y="213" font-size="11" fill="#3B3E42">JR東京站</text>
+            <svg viewBox="0 0 600 245" xmlns="http://www.w3.org/2000/svg" style="background:#FAF7F2;">
+              <rect x="10" y="10" width="580" height="225" rx="12" fill="#FFFFFF" stroke="#333538" stroke-width="2"/>
+              <text x="24" y="38" font-size="15.5" font-weight="bold" fill="#333538">東京考察重點路線（丸之內線・JR中央線）</text>
+              <line x1="50" y1="98" x2="540" y2="98" stroke="#D19A8E" stroke-width="6" stroke-linecap="round"/>
+              <text x="50" y="76" font-size="12" font-weight="bold" fill="#A86153">東京地鐵 丸之內線</text>
+              <circle cx="80" cy="98" r="8" fill="#FFF" stroke="#333538" stroke-width="3"/>
+              <text x="55" y="124" font-size="12" font-weight="bold" fill="#333538">方南町站</text>
+              <text x="36" y="140" font-size="10.5" fill="#6E7278">12/7 環七地下調節池</text>
+              <circle cx="235" cy="98" r="8" fill="#FFF" stroke="#333538" stroke-width="3"/>
+              <text x="218" y="124" font-size="12" font-weight="bold" fill="#333538">新宿站</text>
+              <circle cx="375" cy="98" r="9" fill="#E6C77A" stroke="#333538" stroke-width="3"/>
+              <text x="348" y="124" font-size="12" font-weight="bold" fill="#333538">四谷站(住宿)</text>
+              <circle cx="515" cy="98" r="8" fill="#FFF" stroke="#333538" stroke-width="3"/>
+              <text x="482" y="124" font-size="12" font-weight="bold" fill="#333538">大手町/東京站</text>
+              <text x="470" y="140" font-size="10.5" fill="#6E7278">12/8 東京消防廳本部</text>
+              <line x1="235" y1="186" x2="515" y2="186" stroke="#7B93A8" stroke-width="5" stroke-dasharray="8,4"/>
+              <text x="235" y="169" font-size="12" font-weight="bold" fill="#4A657D">JR 中央線快速（四谷 ⇄ 東京站約 10 分鐘，轉北陸新幹線）</text>
+              <circle cx="375" cy="186" r="7" fill="#FFF" stroke="#333538" stroke-width="2.5"/>
+              <text x="360" y="210" font-size="11" font-weight="bold" fill="#333538">JR四谷</text>
+              <circle cx="515" cy="186" r="7" fill="#FFF" stroke="#333538" stroke-width="2.5"/>
+              <text x="498" y="210" font-size="11" font-weight="bold" fill="#333538">JR東京站</text>
             </svg>
           </div>
           <div class="map-card-footer">
@@ -569,23 +777,23 @@
 
         <div class="map-card">
           <div onclick="openZoomSvg('notoSvg')" id="notoSvg">
-            <svg viewBox="0 0 600 235" xmlns="http://www.w3.org/2000/svg" style="background:#F4F1EC;">
-              <rect x="10" y="10" width="580" height="215" rx="12" fill="#FCFBF9" stroke="#D5CFC6" stroke-width="2"/>
-              <text x="26" y="38" font-size="15.5" font-weight="bold" fill="#3B3E42">北陸新幹線 &amp; 能登半島考察路線（12/9–12/11）</text>
-              <line x1="45" y1="110" x2="550" y2="110" stroke="#6D8299" stroke-width="6" stroke-linecap="round"/>
-              <circle cx="65" cy="110" r="8" fill="#FFF" stroke="#6D8299" stroke-width="4"/>
-              <text x="48" y="90" font-size="12" font-weight="bold" fill="#3B3E42">東京站</text>
-              <text x="95" y="100" font-size="11" fill="#6D8299">北陸新幹線 2h20m</text>
-              <circle cx="220" cy="110" r="8" fill="#FFF" stroke="#6D8299" stroke-width="4"/>
-              <text x="198" y="90" font-size="12" font-weight="bold" fill="#3B3E42">金澤站</text>
-              <text x="184" y="135" font-size="10.5" fill="#72767B">12/9 石川縣廳</text>
-              <circle cx="365" cy="110" r="9" fill="#7E9680" stroke="#6D8299" stroke-width="4"/>
-              <text x="340" y="90" font-size="12" font-weight="bold" fill="#526B54">七尾站(住宿)</text>
-              <text x="325" y="135" font-size="10.5" fill="#72767B">12/10 包車勘查起點</text>
-              <circle cx="515" cy="110" r="8" fill="#FFF" stroke="#BA8479" stroke-width="4"/>
-              <text x="495" y="90" font-size="12" font-weight="bold" fill="#BA8479">穴水站</text>
-              <text x="458" y="135" font-size="10.5" fill="#72767B">12/11 震災語り部列車</text>
-              <text x="36" y="182" font-size="12" fill="#3B3E42">📍 12/10 包車：七尾 → 能登白丸(神田區長) → 珠洲寶立(宮口導覽/午餐) → 輪島朝市 → 和倉溫泉</text>
+            <svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg" style="background:#FAF7F2;">
+              <rect x="10" y="10" width="580" height="210" rx="12" fill="#FFFFFF" stroke="#333538" stroke-width="2"/>
+              <text x="24" y="38" font-size="15.5" font-weight="bold" fill="#333538">北陸新幹線 &amp; 能登半島考察路線（12/9–12/11）</text>
+              <line x1="45" y1="108" x2="550" y2="108" stroke="#7B93A8" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="65" cy="108" r="8" fill="#FFF" stroke="#333538" stroke-width="3"/>
+              <text x="48" y="88" font-size="12" font-weight="bold" fill="#333538">東京站</text>
+              <text x="95" y="98" font-size="11" font-weight="bold" fill="#4A657D">北陸新幹線 2h20m</text>
+              <circle cx="220" cy="108" r="8" fill="#FFF" stroke="#333538" stroke-width="3"/>
+              <text x="198" y="88" font-size="12" font-weight="bold" fill="#333538">金澤站</text>
+              <text x="184" y="133" font-size="10.5" fill="#6E7278">12/9 石川縣廳</text>
+              <circle cx="365" cy="108" r="9" fill="#8AA38D" stroke="#333538" stroke-width="3"/>
+              <text x="340" y="88" font-size="12" font-weight="bold" fill="#333538">七尾站(住宿)</text>
+              <text x="325" y="133" font-size="10.5" fill="#6E7278">12/10 包車起點</text>
+              <circle cx="515" cy="108" r="8" fill="#D19A8E" stroke="#333538" stroke-width="3"/>
+              <text x="495" y="88" font-size="12" font-weight="bold" fill="#333538">穴水站</text>
+              <text x="458" y="133" font-size="10.5" fill="#6E7278">12/11 震災語り部列車</text>
+              <text x="34" y="178" font-size="12" font-weight="bold" fill="#333538">📍 12/10 包車：七尾 → 白丸(神田區長) → 寶立(宮口導覽/午餐) → 輪島朝市 → 和倉溫泉</text>
             </svg>
           </div>
           <div class="map-card-footer">
@@ -597,19 +805,23 @@
     </div>
   </section>
 
-  <!-- PAGE 3: 景點與 Google Maps 清單 -->
+  <!-- PAGE 5: 景點與 Google Maps 清單 -->
   <section id="page-places" class="page">
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <h3 style="margin:0;">📍 Google Maps 清單</h3>
-        <button class="btn-primary" onclick="openPlaceModal()">＋ 新增地點</button>
+    <div class="sec-header">
+      <div class="sec-title-group">
+        <div class="sec-icon" style="background:var(--m-rose-soft);">🗺️</div>
+        <h2>Google Maps 景點與美食清單</h2>
       </div>
+      <button class="btn-pill rose" onclick="openPlaceModal()">＋ 新增地點</button>
+    </div>
+
+    <div class="card">
       <div class="filter-group">
-        <span class="filter-label">分類</span>
+        <span class="filter-label">分類篩選</span>
         <div class="chip-row" id="catChips"></div>
       </div>
       <div class="filter-group">
-        <span class="filter-label">區域</span>
+        <span class="filter-label">區域篩選</span>
         <div class="chip-row" id="areaChips"></div>
       </div>
       <div class="filter-group" style="margin-bottom:0;">
@@ -617,68 +829,99 @@
         <div class="chip-row" id="foodChips"></div>
       </div>
     </div>
+
     <div id="placesList"></div>
   </section>
 
-  <!-- PAGE 4: 出席人員與聯絡窗口 -->
+  <!-- PAGE 6: 待辦與日本12月攜帶物品提醒 -->
+  <section id="page-packing" class="page">
+    <div class="sec-header">
+      <div class="sec-title-group">
+        <div class="sec-icon" style="background:var(--m-sage-soft);">🧳</div>
+        <h2>行前待辦 &amp; 12月攜帶提醒</h2>
+      </div>
+      <span class="sec-hint" id="packProgressText">0 / 0 已完成</span>
+    </div>
+
+    <div class="card" style="background:var(--m-sage-soft);">
+      <div class="progress-wrap"><div class="progress-bar" id="packProgressBar"></div></div>
+      <p style="margin:6px 0 0; font-size:12.5px; font-weight:600; color:var(--ink);">
+        ❄️ 12月上旬氣溫：東京約 6–14°C（乾冷）；石川・能登約 3–10°C（海風強、易有冬雨或濕雪，請備防風防水外套與止滑鞋）。
+      </p>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-bottom:14px;">
+      <input type="text" id="newPackInput" placeholder="新增自訂待辦或攜帶物品..." style="flex:1; padding:9px 12px; border:2px solid var(--border-ink); border-radius:999px; font-size:13.5px; background:#FFF;" />
+      <button class="btn-pill sage" onclick="addPackItem()">＋ 加入</button>
+    </div>
+
+    <div id="packingContainer"></div>
+  </section>
+
+  <!-- PAGE 7: 團員與窗口 -->
   <section id="page-people" class="page">
-    <div class="card" style="background:var(--m-blue-soft); border-color:#CEDAE5;">
-      <h3 style="margin-bottom:4px; color:#3B4F63;">🇹🇼 考察團出席人員（共 4 名）</h3>
-      <p style="margin:0; font-size:12.5px; color:#556B80;">內政部消防署 115年「赴日本考察社區防災制度、公私協力與防災宣導實務」</p>
+    <div class="sec-header">
+      <div class="sec-title-group">
+        <div class="sec-icon" style="background:var(--m-plum-soft);">👥</div>
+        <h2>考察團員與日方窗口</h2>
+      </div>
+      <span class="sec-hint">內政部消防署（共 4 名）</span>
     </div>
 
-    <div class="person-card">
-      <div class="avatar" style="background:var(--m-blue);">邱</div>
-      <div class="p-info">
-        <h4>邱景祥 <span style="font-size:12px; font-weight:400; color:var(--ink-muted);">Chiu Jing-Shiang</span></h4>
-        <div class="p-role">災害管理組 組長（團長）</div>
-        <div class="p-sub">警監3階｜總領隊與公務拜會代表</div>
+    <div class="person-grid">
+      <div class="person-card">
+        <div class="avatar" style="background:var(--m-blue);">邱</div>
+        <div class="p-info">
+          <h4>邱景祥 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">Chiu Jing-Shiang</span></h4>
+          <div class="p-role">災害管理組 組長（團長）</div>
+          <div class="p-sub">警監3階｜總領隊與公務拜會代表</div>
+        </div>
+      </div>
+
+      <div class="person-card">
+        <div class="avatar" style="background:var(--m-sage);">許</div>
+        <div class="p-info">
+          <h4>許書銘 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">Hsu Shu-Ming</span></h4>
+          <div class="p-role">災害管理組 科長</div>
+          <div class="p-sub">警正1階｜社區防災與韌性業務</div>
+        </div>
+      </div>
+
+      <div class="person-card">
+        <div class="avatar" style="background:var(--m-rose);">蘇</div>
+        <div class="p-info">
+          <h4>蘇筱琁 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">Su Hsiao-Hsuan</span></h4>
+          <div class="p-role">災害管理組 視察（承辦人）</div>
+          <div class="p-sub">警正1階｜行程統籌與日方對接</div>
+        </div>
+      </div>
+
+      <div class="person-card">
+        <div class="avatar" style="background:var(--m-plum);">譯</div>
+        <div class="p-info">
+          <h4>隨行日文通譯 <span style="font-size:11.5px; font-weight:400; color:var(--ink-muted);">1 名</span></h4>
+          <div class="p-role">專業日文口譯人員</div>
+          <div class="p-sub">12/07（一）– 12/11（五）全程陪同</div>
+        </div>
       </div>
     </div>
 
-    <div class="person-card">
-      <div class="avatar" style="background:var(--m-sage);">許</div>
-      <div class="p-info">
-        <h4>許書銘 <span style="font-size:12px; font-weight:400; color:var(--ink-muted);">Hsu Shu-Ming</span></h4>
-        <div class="p-role">災害管理組 科長</div>
-        <div class="p-sub">警正1階｜全社會防衛韌性與社區防災業務</div>
-      </div>
-    </div>
-
-    <div class="person-card">
-      <div class="avatar" style="background:var(--m-rose);">蘇</div>
-      <div class="p-info">
-        <h4>蘇筱琁 <span style="font-size:12px; font-weight:400; color:var(--ink-muted);">Su Hsiao-Hsuan</span></h4>
-        <div class="p-role">災害管理組 視察（承辦人）</div>
-        <div class="p-sub">警正1階｜行程統籌、日方窗口聯繫與防災士業務</div>
-      </div>
-    </div>
-
-    <div class="person-card">
-      <div class="avatar" style="background:var(--m-plum);">譯</div>
-      <div class="p-info">
-        <h4>隨行日文通譯 <span style="font-size:12px; font-weight:400; color:var(--ink-muted);">1 名</span></h4>
-        <div class="p-role">專業日文口譯人員</div>
-        <div class="p-sub">12/7（一）至 12/11（五）全程 5 日陪同翻譯</div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:14px;">
+    <div class="card">
       <h3>🇯🇵 日方重點拜會與交通窗口</h3>
       <div class="contact-row">
-        <strong>12/7 神田川・環七地下調節池</strong>
+        <strong>12/07 環七地下調節池（善福寺川取水設施）</strong>
         <span>東京都總務局 尾身 亮介 課長（03-5320-7602）｜出席：牛嶋 築 危機管理監、前田 泰伯 復興擔當部長</span>
       </div>
       <div class="contact-row">
-        <strong>12/8 東京消防廳本部 &amp; 本所防災館</strong>
-        <span>總務課國際業務係 佐伯先生（03-3212-2111 內線2587）｜11:00 廳舍1樓大廳集合</span>
+        <strong>12/08 東京消防廳本部 &amp; 本所防災館</strong>
+        <span>總務課國際業務係 佐伯先生（03-3212-2111 內線2587）｜11:00 廳舍1樓大廳迎接</span>
       </div>
       <div class="contact-row">
-        <strong>12/8 晚間餐敘（Tenshige）</strong>
+        <strong>12/08 晚間餐敘（Tenshige）</strong>
         <span>石川昭政 眾議員、岩澤秘書、玉田先生</span>
       </div>
       <div class="contact-row">
-        <strong>12/9 石川縣廳 危機管理部</strong>
+        <strong>12/09 石川縣廳 危機管理部</strong>
         <span>危機管理政策課 主任 淺見和希（076-225-1488 分機4232）</span>
       </div>
       <div class="contact-row">
@@ -692,46 +935,7 @@
     </div>
   </section>
 
-  <!-- PAGE 5: 日本12月旅行攜帶物品提醒 -->
-  <section id="page-packing" class="page">
-    <div class="card" style="background:var(--m-sage-soft); border-color:#CFE0D0;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 style="margin:0; color:#3D543F;">🧳 日本 12 月攜帶物品清單</h3>
-        <span id="packProgressText" style="font-size:13px; font-weight:700; color:#3D543F;">0 / 0</span>
-      </div>
-      <div class="progress-wrap"><div class="progress-bar" id="packProgressBar"></div></div>
-      <p style="margin:6px 0 0; font-size:12px; color:#526B54;">
-        ❄️ 12月上旬氣溫參考：東京約 6–14°C（乾冷晴朗）；石川・能登約 3–10°C（海風強、易有冬雨或濕雪，務必防風防水）。
-      </p>
-    </div>
-
-    <div style="display:flex; gap:8px; margin-bottom:12px;">
-      <input type="text" id="newPackInput" placeholder="新增自訂攜帶物品..." style="flex:1; padding:9px 11px; border:1px solid var(--border-soft); border-radius:10px; font-size:13.5px;" />
-      <button class="btn-sage" onclick="addPackItem()">＋ 加入</button>
-    </div>
-
-    <div id="packingContainer"></div>
-  </section>
 </div>
-
-<!-- Bottom Navigation (5 Tabs) -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" onclick="switchTab('schedule', this)">
-    <span class="ico">📅</span><span>每日行程</span>
-  </button>
-  <button class="nav-btn" onclick="switchTab('subway', this)">
-    <span class="ico">🚇</span><span>地鐵</span>
-  </button>
-  <button class="nav-btn" onclick="switchTab('places', this)">
-    <span class="ico">🗺️</span><span>景點</span>
-  </button>
-  <button class="nav-btn" onclick="switchTab('people', this)">
-    <span class="ico">👥</span><span>人員</span>
-  </button>
-  <button class="nav-btn" onclick="switchTab('packing', this)">
-    <span class="ico">🧳</span><span>攜帶提醒</span>
-  </button>
-</nav>
 
 <!-- Schedule Modal -->
 <div class="modal" id="scheduleModal">
@@ -746,7 +950,7 @@
     <div class="form-row"><label>備註 / 窗口 / 細流</label><textarea id="schedNote" rows="3"></textarea></div>
     <div class="modal-btns">
       <button class="btn-sm" onclick="closeModal('scheduleModal')">取消</button>
-      <button class="btn-primary" onclick="saveScheduleItem()">儲存</button>
+      <button class="btn-pill" onclick="saveScheduleItem()">儲存</button>
     </div>
   </div>
 </div>
@@ -773,11 +977,11 @@
       </select>
     </div>
     <div class="form-row"><label>餐點種類 / 飲食標籤</label><input type="text" id="plFood" placeholder="例如：海鮮・無牛肉、拉麵、和菓子、無" /></div>
-    <div class="form-row"><label>Google Maps 連結（留白自動產生）</label><input type="url" id="plUrl" placeholder="https://maps.app.goo.gl/..." /></div>
+    <div class="form-row"><label>Google Maps 連結（留白自動搜尋）</label><input type="url" id="plUrl" placeholder="https://maps.app.goo.gl/..." /></div>
     <div class="form-row"><label>備註</label><input type="text" id="plNote" placeholder="例如：12/8 餐敘地點" /></div>
     <div class="modal-btns">
       <button class="btn-sm" onclick="closeModal('placeModal')">取消</button>
-      <button class="btn-primary" onclick="savePlaceItem()">新增</button>
+      <button class="btn-pill rose" onclick="savePlaceItem()">新增</button>
     </div>
   </div>
 </div>
@@ -799,16 +1003,16 @@
 <script>
 const DEFAULT_DAYS = [
   {
-    date: "12/6 (日)",
-    title: "12月6日（日）啟程・抵達東京",
+    pill: "D1・12/06 (日)",
+    title: "Day 1｜12月6日（日）啟程・抵達東京",
     stay: "住宿：ホテル京阪 東京四谷（Hotel Keihan Tokyo Yotsuya）",
     items: [
       { dep: "去程", arr: "東京", trans: "國際航班 ✈️", title: "臺北松山機場 → 日本羽田機場", loc: "羽田機場 → 新宿區四谷 1-24", note: "抵達羽田後前往四谷京阪飯店（郵遞區號 160-0004）辦理入住，確認隔日行程與伴手禮分配。" }
     ]
   },
   {
-    date: "12/7 (一)",
-    title: "12月7日（一）防災士制度與環七地下調節池",
+    pill: "D2・12/07 (一)",
+    title: "Day 2｜12月7日（一）防災士制度與環七地下調節池",
     stay: "住宿：ホテル京阪 東京四谷（Hotel Keihan Tokyo Yotsuya）",
     items: [
       { dep: "上午", arr: "待確認", trans: "東京地鐵 🚇", title: "拜會日本防災士機構、日本防災士協會、防災士研修中心", loc: "東京都內（大崎部長確認中）", note: "透過岩澤秘書確認集合時間與地點。\n議題：防災士回訓機制、社區串聯與師資培訓。" },
@@ -816,8 +1020,8 @@ const DEFAULT_DAYS = [
     ]
   },
   {
-    date: "12/8 (二)",
-    title: "12月8日（二）東京消防廳・本所防災館・餐敘",
+    pill: "D3・12/08 (二)",
+    title: "Day 3｜12月8日（二）東京消防廳・本所防災館・餐敘",
     stay: "住宿：ホテル京阪 東京四谷（Hotel Keihan Tokyo Yotsuya）",
     items: [
       { dep: "10:30", arr: "11:00", trans: "東京地鐵丸之內線 🚇", title: "拜會東京消防廳本部（防災部長面會及意見交換）", loc: "東京都千代田區大手町 1-3-5（1樓大廳集合）", note: "時間：11:00–11:45（1樓大廳由佐伯先生迎接）\n議題：提升地域防災力基本方針、高齡者及外國人數位化防災宣導策略。" },
@@ -826,8 +1030,8 @@ const DEFAULT_DAYS = [
     ]
   },
   {
-    date: "12/9 (三)",
-    title: "12月9日（三）移動至金澤・石川縣廳・赴七尾",
+    pill: "D4・12/09 (三)",
+    title: "Day 4｜12月9日（三）移動至金澤・石川縣廳・赴七尾",
     stay: "住宿：Hotel Route Inn Nanao Ekihigashi（七尾站東）",
     items: [
       { dep: "06:45", arr: "09:44", trans: "JR中央線 → 北陸新幹線 🚄", title: "四谷出發 → 東京站搭北陸新幹線往金澤", loc: "四谷 → 東京站（07:24 發）→ 金澤站（09:44 抵）", note: "06:45 飯店大廳集合出發，預留轉乘新幹線時間。" },
@@ -836,16 +1040,16 @@ const DEFAULT_DAYS = [
     ]
   },
   {
-    date: "12/10 (四)",
-    title: "12月10日（四）能登半島震災現地勘查",
+    pill: "D5・12/10 (四)",
+    title: "Day 5｜12月10日（四）能登半島震災現地勘查",
     stay: "住宿：Hotel Route Inn Nanao Ekihigashi（七尾站東）",
     items: [
       { dep: "09:00", arr: "17:00", trans: "のと復興タクシー包車 🚐", title: "白丸地區・珠洲寶立・輪島朝市火災遺跡・和倉溫泉", loc: "七尾飯店出發 → 白丸 → 寶立 → 輪島 → 和倉溫泉 → 七尾", note: "窗口：森崎伸二郎（プリウス4人座，現金 63,000 日圓含寶立導覽，記得索取領収書）\n11:20 寶立地區（宮口智美導覽50分＋12:20寶立拉麵午餐）\n13:40 輪島朝市｜15:20 和倉溫泉｜16:30–17:00 返抵飯店（不繞道來迎寺）。" }
     ]
   },
   {
-    date: "12/11 (五)",
-    title: "12月11日（五）能登鐵道震災列車・返回東京",
+    pill: "D6・12/11 (五)",
+    title: "Day 6｜12月11日（五）能登鐵道震災列車・返回東京",
     stay: "住宿：東京都內飯店",
     items: [
       { dep: "10:00", arr: "12:54", trans: "能登鐵道 🚃", title: "搭乘「震災語り部列車」與能登鐵道社長座談", loc: "七尾站 10:00 → 穴水站 10:45 ／ 穴水站 12:09 → 七尾站 12:54", note: "11:00–11:50 能登鐵道社長談話（準備主禮）\n12:09–12:54 震災故事講述觀光列車 2 號返回七尾\n窗口：東井 豊記（0768-52-0900）。" },
@@ -853,11 +1057,11 @@ const DEFAULT_DAYS = [
     ]
   },
   {
-    date: "12/12 (六)",
-    title: "12月12日（六）平安返國",
+    pill: "D7・12/12 (六)",
+    title: "Day 7｜12月12日（六）平安返國",
     stay: "溫暖的家（台灣）",
     items: [
-      { dep: "返程", arr: "台北", trans: "機場交通 → 國際航班 ✈️", title: "日本羽田機場 → 臺北松山機場", loc: "東京市區 → 羽田機場 → 松山機場", note: "結束 7 日赴日防災考察行程（返國後3個月內、116年3月12日前繳交出國報告）。" }
+      { dep: "返程", arr: "台北", trans: "機場交通 → 國際航班 ✈️", title: "日本羽田機場 → 臺北松山機場", loc: "東京市區 → 羽田機場 → 松山機場", note: "結束 7 日赴日防災考察行程（返國後 3 個月內、116/3/12 前繳交出國報告）。" }
     ]
   }
 ];
@@ -878,25 +1082,25 @@ const DEFAULT_PLACES = [
 ];
 
 const DEFAULT_PACKING = [
-  { cat: "📄 證件・公務與金錢", color: "#6D8299", items: [
+  { cat: "📄 證件・公務與金錢", bg: "#E9F0F5", items: [
     { id: "p1", text: "護照（效期6個月以上）與 Visit Japan Web 截圖", sub: "飯店地址：160-0004 東京都新宿區四谷1-24", done: false },
     { id: "p2", text: "公務名片（日文/英文版，多帶 30–50 張）", sub: "拜會東京消防廳、石川縣廳、能登鐵道等必備", done: false },
     { id: "p3", text: "日圓現金（含 12/10 包車 63,000 日圓）與信用卡", sub: "能登地區部分店家與包車僅收現金；核銷記得索取領収書", done: false },
     { id: "p4", text: "公務伴手禮（鳳梨酥、茶包、花生酥等獨立包裝）", sub: "分配給各拜會首長與窗口致意", done: false }
   ]},
-  { cat: "🧥 12月冬季保暖穿搭（東京乾冷＋北陸濕冷）", color: "#BA8479", items: [
+  { cat: "🧥 12月冬季保暖穿搭（東京乾冷＋北陸濕冷）", bg: "#F7EAE7", items: [
     { id: "p5", text: "防風防水保暖外套 / 羽絨大衣", sub: "日本室內暖氣強，建議採「洋蔥式穿法」方便穿脫", done: false },
     { id: "p6", text: "發熱衣（ヒートテック）與保暖長褲", sub: "能登半島海風強勁，12/10 戶外勘查特別需要", done: false },
     { id: "p7", text: "圍巾、手套、毛帽與暖暖包", sub: "戶外走訪輪島、珠洲災區時防寒", done: false },
     { id: "p8", text: "防滑好走的防水鞋 + 厚襪子", sub: "北陸12月易下雨或飄濕雪，且需長時間步行勘查", done: false },
     { id: "p9", text: "正式/半正式公務服裝", sub: "拜會東京消防廳、石川縣廳、眾議員餐敘穿著", done: false }
   ]},
-  { cat: "📱 3C 電力與網路", color: "#7E9680", items: [
+  { cat: "📱 3C 電力與網路", bg: "#EAF2EB", items: [
     { id: "p10", text: "日本 eSIM / SIM 卡或 Wi-Fi 機", sub: "確認已開通並存好設定檔", done: false },
     { id: "p11", text: "行動電源（必須手提上飛機，不可託運）", sub: "冬天低溫手機掉電快，建議帶 10000mAh 以上", done: false },
     { id: "p12", text: "充電器與充電線（日本電壓 100V，雙扁插頭免轉接）", sub: "手機、筆電或平板充電線", done: false }
   ]},
-  { cat: "🧴 冬季保濕與常備用品", color: "#C2A378", items: [
+  { cat: "🧴 冬季保濕與常備用品", bg: "#FBF4E2", items: [
     { id: "p13", text: "護唇膏、護手霜、保濕乳液", sub: "日本12月空氣極度乾燥，飯店開暖氣更乾", done: false },
     { id: "p14", text: "摺疊傘（防風款）或輕便雨衣", sub: "石川縣金澤與能登冬季降雨機率高", done: false },
     { id: "p15", text: "個人常備藥品（感冒藥、腸胃藥、暈車藥）與口罩", sub: "12/10 能登半島包車山海路段較長可備暈車藥", done: false },
@@ -904,7 +1108,7 @@ const DEFAULT_PACKING = [
   ]}
 ];
 
-const KEY_PREFIX = "morandi_jp_2026_";
+const KEY_PREFIX = "morandi_pill_jp_2026_";
 let tripData = JSON.parse(localStorage.getItem(KEY_PREFIX + "days")) || JSON.parse(JSON.stringify(DEFAULT_DAYS));
 let placeData = JSON.parse(localStorage.getItem(KEY_PREFIX + "places")) || JSON.parse(JSON.stringify(DEFAULT_PLACES));
 let customMaps = JSON.parse(localStorage.getItem(KEY_PREFIX + "maps")) || [];
@@ -921,11 +1125,12 @@ function saveAll() {
   localStorage.setItem(KEY_PREFIX + "packing", JSON.stringify(packingData));
 }
 
-function switchTab(tab, btn) {
+function switchTab(tab) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".nav-link-btn").forEach(b => {
+    b.classList.toggle("active", b.getAttribute("data-tab") === tab);
+  });
   document.getElementById("page-" + tab).classList.add("active");
-  btn.classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -934,10 +1139,9 @@ function renderSchedule() {
   const wrap = document.getElementById("dateTabs");
   wrap.innerHTML = "";
   tripData.forEach((d, idx) => {
-    const parts = d.date.split(" ");
-    const pill = document.createElement("div");
+    const pill = document.createElement("button");
     pill.className = "date-pill" + (idx === currentDayIdx ? " active" : "");
-    pill.innerHTML = `<span class="d-num">${parts[0]}</span><span class="d-sub">${parts[1] || ""}</span>`;
+    pill.textContent = d.pill;
     pill.onclick = () => { currentDayIdx = idx; renderSchedule(); };
     wrap.appendChild(pill);
   });
@@ -1136,7 +1340,7 @@ function savePlaceItem() {
   saveAll(); closeModal("placeModal"); renderPlaces();
 }
 
-/* Packing List */
+/* Packing */
 function renderPacking() {
   const wrap = document.getElementById("packingContainer");
   let total = 0, doneCount = 0;
@@ -1158,11 +1362,11 @@ function renderPacking() {
           </div>
         </label>`;
     });
-    card.innerHTML = `<span class="pack-cat-title" style="background:${group.color};">${group.cat}</span><div>${itemsHtml}</div>`;
+    card.innerHTML = `<span class="pack-cat-title" style="background:${group.bg};">${group.cat}</span><div>${itemsHtml}</div>`;
     wrap.appendChild(card);
   });
 
-  document.getElementById("packProgressText").textContent = `${doneCount} / ${total} 已準備`;
+  document.getElementById("packProgressText").textContent = `${doneCount} / ${total} 已完成`;
   document.getElementById("packProgressBar").style.width = total ? `${Math.round((doneCount / total) * 100)}%` : "0%";
 }
 
