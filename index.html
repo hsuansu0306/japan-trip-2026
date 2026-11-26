@@ -6,25 +6,26 @@
 <title>2026赴日防災考察手冊｜12/06–12/12</title>
 <style>
   :root {
-    --bg-cream: #F8F5F0;
+    /* 莫蘭迪色系：霧霾藍、鼠尾草綠、乾燥玫瑰粉、暖燕麥金、灰紫 */
+    --bg-cream: #F6F3EE;
     --card-bg: #FFFFFF;
-    --ink: #323538;
+    --ink: #34373B;
     --ink-muted: #6C7076;
-    --border-ink: #383B3F;
+    --border-ink: #3D4045;
 
-    --m-ochre: #E7C87E;
-    --m-ochre-soft: #FCF5E4;
-    --m-blue: #768FA5;
+    --m-blue: #768FA5;       /* 霧霾藍 */
     --m-blue-soft: #E9F0F6;
-    --m-sage: #849E87;
+    --m-sage: #849E87;       /* 鼠尾草綠 */
     --m-sage-soft: #EAF2EB;
-    --m-rose: #CE978B;
+    --m-rose: #CE978B;       /* 乾燥玫瑰粉 */
     --m-rose-soft: #F8EAE7;
-    --m-plum: #9A8BA0;
+    --m-ochre: #DFC07D;      /* 暖燕麥金 */
+    --m-ochre-soft: #FCF5E4;
+    --m-plum: #9A8BA0;       /* 灰紫 */
     --m-plum-soft: #F1EDF3;
 
-    --shadow-hard: 0 3px 0 #383B3F;
-    --shadow-hard-sm: 0 2px 0 #383B3F;
+    --shadow-hard: 0 3px 0 #3D4045;
+    --shadow-hard-sm: 0 2px 0 #3D4045;
   }
 
   * {
@@ -34,19 +35,19 @@
 
   body {
     margin: 0;
-    padding: 0 0 36px 0;
+    padding: 0 0 38px 0;
     background-color: var(--bg-cream);
     color: var(--ink);
     line-height: 1.55;
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Top Sticky Floating Pill Navigation Bar */
+  /* Sticky Top Navigation Bar */
   .top-header-wrap {
     position: sticky;
     top: 0;
     z-index: 90;
-    background: rgba(248, 245, 240, 0.94);
+    background: rgba(246, 243, 238, 0.94);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     padding: 10px 12px;
@@ -54,7 +55,7 @@
   }
 
   .pill-navbar {
-    max-width: 860px;
+    max-width: 880px;
     margin: 0 auto;
     background: #FFFFFF;
     border: 2.5px solid var(--border-ink);
@@ -145,7 +146,7 @@
     color: var(--ink);
   }
 
-  @media (min-width: 720px) {
+  @media (min-width: 740px) {
     .pill-navbar {
       flex-direction: row;
       align-items: center;
@@ -153,7 +154,6 @@
       border-radius: 999px;
       padding: 8px 14px 8px 10px;
     }
-    .nav-top-row { gap: 12px; }
     .trip-meta-pill { display: none; }
     .nav-links {
       flex-wrap: nowrap;
@@ -172,7 +172,7 @@
 
   /* Main Container */
   .container {
-    max-width: 860px;
+    max-width: 880px;
     margin: 0 auto;
     padding: 16px 14px 28px;
   }
@@ -464,6 +464,7 @@
   .tag-area { background: var(--m-blue-soft); }
   .tag-food { background: var(--m-ochre-soft); }
   .tag-veg { background: var(--m-sage-soft); }
+  .tag-rec { background: var(--m-plum-soft); color: #54455A; }
   .place-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
   .place-header h4 { margin: 0; font-size: 15.5px; font-weight: 800; }
   .btn-gmap {
@@ -479,10 +480,10 @@
     white-space: nowrap;
   }
 
-  /* Personnel (只保留姓名) */
+  /* Personnel (保留姓名、英文拼寫、職稱與分工，無階級) */
   .person-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 12px;
     margin-bottom: 14px;
   }
@@ -497,19 +498,22 @@
     padding: 13px 15px;
   }
   .avatar {
-    width: 42px;
-    height: 42px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     border: 2px solid var(--border-ink);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: 16px;
+    font-size: 17px;
     color: #FFF;
     flex-shrink: 0;
   }
-  .p-info h4 { margin: 0; font-size: 16.5px; font-weight: 800; color: var(--ink); }
+  .p-info h4 { margin: 0; font-size: 16px; font-weight: 800; color: var(--ink); }
+  .p-en { font-size: 11.5px; font-weight: 600; color: var(--ink-muted); margin-left: 4px; }
+  .p-role { font-size: 13px; color: #4A657D; font-weight: 800; margin-top: 2px; }
+  .p-sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
 
   .contact-row { padding: 9px 0; border-bottom: 1.5px dashed #DDD7CE; font-size: 13px; }
   .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -646,7 +650,7 @@
       <button class="nav-link-btn active" data-tab="schedule" onclick="switchTab('schedule')">📅 行程</button>
       <button class="nav-link-btn" data-tab="hotel" onclick="switchTab('hotel')">🏨 住宿</button>
       <button class="nav-link-btn" data-tab="subway" onclick="switchTab('subway')">🚇 地鐵</button>
-      <button class="nav-link-btn" data-tab="places" onclick="switchTab('places')">🗺️ 景點</button>
+      <button class="nav-link-btn" data-tab="places" onclick="switchTab('places')">🗺️ 景點美食</button>
       <button class="nav-link-btn" data-tab="packing" onclick="switchTab('packing')">🧳 待辦</button>
       <button class="nav-link-btn" data-tab="people" onclick="switchTab('people')">👥 團員</button>
     </div>
@@ -814,30 +818,30 @@
       <div class="map-grid">
         <div class="map-card">
           <div onclick="openZoomSvg('tokyoSvg')" id="tokyoSvg">
-            <svg viewBox="0 0 600 245" xmlns="http://www.w3.org/2000/svg" style="background:#F8F5F0;">
-              <rect x="10" y="10" width="580" height="225" rx="12" fill="#FFFFFF" stroke="#383B3F" stroke-width="2"/>
-              <text x="24" y="38" font-size="15.5" font-weight="bold" fill="#323538">東京考察重點路線（丸之內線・JR中央線・京成電鐵）</text>
+            <svg viewBox="0 0 600 245" xmlns="http://www.w3.org/2000/svg" style="background:#F6F3EE;">
+              <rect x="10" y="10" width="580" height="225" rx="12" fill="#FFFFFF" stroke="#3D4045" stroke-width="2"/>
+              <text x="24" y="38" font-size="15.5" font-weight="bold" fill="#34373B">東京考察重點路線（丸之內線・JR中央線・京成電鐵）</text>
               <line x1="48" y1="98" x2="545" y2="98" stroke="#CE978B" stroke-width="6" stroke-linecap="round"/>
               <text x="48" y="76" font-size="12" font-weight="bold" fill="#9E5B4D">東京地鐵 丸之內線</text>
-              <circle cx="75" cy="98" r="8" fill="#FFF" stroke="#383B3F" stroke-width="3"/>
-              <text x="50" y="124" font-size="12" font-weight="bold" fill="#323538">方南町站</text>
+              <circle cx="75" cy="98" r="8" fill="#FFF" stroke="#3D4045" stroke-width="3"/>
+              <text x="50" y="124" font-size="12" font-weight="bold" fill="#34373B">方南町站</text>
               <text x="32" y="140" font-size="10.5" fill="#6C7076">12/7 環七調節池</text>
-              <circle cx="215" cy="98" r="8" fill="#FFF" stroke="#383B3F" stroke-width="3"/>
-              <text x="192" y="124" font-size="12" font-weight="bold" fill="#323538">赤坂見附</text>
+              <circle cx="215" cy="98" r="8" fill="#FFF" stroke="#3D4045" stroke-width="3"/>
+              <text x="192" y="124" font-size="12" font-weight="bold" fill="#34373B">赤坂見附</text>
               <text x="180" y="140" font-size="10.5" fill="#6C7076">12/8 餐敘赤坂</text>
-              <circle cx="355" cy="98" r="9" fill="#E7C87E" stroke="#383B3F" stroke-width="3"/>
-              <text x="328" y="124" font-size="12" font-weight="bold" fill="#323538">四谷站(住宿)</text>
-              <circle cx="515" cy="98" r="8" fill="#FFF" stroke="#383B3F" stroke-width="3"/>
-              <text x="480" y="124" font-size="12" font-weight="bold" fill="#323538">大手町/東京站</text>
+              <circle cx="355" cy="98" r="9" fill="#DFC07D" stroke="#3D4045" stroke-width="3"/>
+              <text x="328" y="124" font-size="12" font-weight="bold" fill="#34373B">四谷站(住宿)</text>
+              <circle cx="515" cy="98" r="8" fill="#FFF" stroke="#3D4045" stroke-width="3"/>
+              <text x="480" y="124" font-size="12" font-weight="bold" fill="#34373B">大手町/東京站</text>
               <text x="468" y="140" font-size="10.5" fill="#6C7076">12/8 東京消防廳</text>
               <line x1="75" y1="186" x2="515" y2="186" stroke="#768FA5" stroke-width="5" stroke-dasharray="8,4"/>
               <text x="75" y="169" font-size="12" font-weight="bold" fill="#4A657D">京成電鐵（成田機場 ⇄ 上野約 43 分鐘）＆ JR 中央線（四谷 ⇄ 東京站）</text>
-              <circle cx="140" cy="186" r="7" fill="#849E87" stroke="#383B3F" stroke-width="2.5"/>
-              <text x="112" y="210" font-size="11" font-weight="bold" fill="#323538">上野站(12/11住)</text>
-              <circle cx="355" cy="186" r="7" fill="#FFF" stroke="#383B3F" stroke-width="2.5"/>
-              <text x="330" y="210" font-size="11" font-weight="bold" fill="#323538">JR東京站</text>
-              <circle cx="515" cy="186" r="7" fill="#CE978B" stroke="#383B3F" stroke-width="2.5"/>
-              <text x="488" y="210" font-size="11" font-weight="bold" fill="#323538">成田機場</text>
+              <circle cx="140" cy="186" r="7" fill="#849E87" stroke="#3D4045" stroke-width="2.5"/>
+              <text x="112" y="210" font-size="11" font-weight="bold" fill="#34373B">上野站(12/11住)</text>
+              <circle cx="355" cy="186" r="7" fill="#FFF" stroke="#3D4045" stroke-width="2.5"/>
+              <text x="330" y="210" font-size="11" font-weight="bold" fill="#34373B">JR東京站</text>
+              <circle cx="515" cy="186" r="7" fill="#CE978B" stroke="#3D4045" stroke-width="2.5"/>
+              <text x="488" y="210" font-size="11" font-weight="bold" fill="#34373B">成田機場</text>
             </svg>
           </div>
           <div class="map-card-footer">
@@ -848,23 +852,23 @@
 
         <div class="map-card">
           <div onclick="openZoomSvg('notoSvg')" id="notoSvg">
-            <svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg" style="background:#F8F5F0;">
-              <rect x="10" y="10" width="580" height="210" rx="12" fill="#FFFFFF" stroke="#383B3F" stroke-width="2"/>
-              <text x="24" y="38" font-size="15.5" font-weight="bold" fill="#323538">北陸新幹線 &amp; 能登半島考察路線（12/9–12/11）</text>
+            <svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg" style="background:#F6F3EE;">
+              <rect x="10" y="10" width="580" height="210" rx="12" fill="#FFFFFF" stroke="#3D4045" stroke-width="2"/>
+              <text x="24" y="38" font-size="15.5" font-weight="bold" fill="#34373B">北陸新幹線 &amp; 能登半島考察路線（12/9–12/11）</text>
               <line x1="45" y1="108" x2="550" y2="108" stroke="#768FA5" stroke-width="6" stroke-linecap="round"/>
-              <circle cx="65" cy="108" r="8" fill="#FFF" stroke="#383B3F" stroke-width="3"/>
-              <text x="48" y="88" font-size="12" font-weight="bold" fill="#323538">東京站</text>
+              <circle cx="65" cy="108" r="8" fill="#FFF" stroke="#3D4045" stroke-width="3"/>
+              <text x="48" y="88" font-size="12" font-weight="bold" fill="#34373B">東京站</text>
               <text x="90" y="98" font-size="11" font-weight="bold" fill="#4A657D">07:20→09:44 新幹線</text>
-              <circle cx="220" cy="108" r="8" fill="#FFF" stroke="#383B3F" stroke-width="3"/>
-              <text x="198" y="88" font-size="12" font-weight="bold" fill="#323538">金澤站</text>
+              <circle cx="220" cy="108" r="8" fill="#FFF" stroke="#3D4045" stroke-width="3"/>
+              <text x="198" y="88" font-size="12" font-weight="bold" fill="#34373B">金澤站</text>
               <text x="184" y="133" font-size="10.5" fill="#6C7076">12/9 石川縣廳</text>
-              <circle cx="365" cy="108" r="9" fill="#849E87" stroke="#383B3F" stroke-width="3"/>
-              <text x="340" y="88" font-size="12" font-weight="bold" fill="#323538">七尾站(住宿)</text>
+              <circle cx="365" cy="108" r="9" fill="#849E87" stroke="#3D4045" stroke-width="3"/>
+              <text x="340" y="88" font-size="12" font-weight="bold" fill="#34373B">七尾站(住宿)</text>
               <text x="325" y="133" font-size="10.5" fill="#6C7076">12/10 包車起點</text>
-              <circle cx="515" cy="108" r="8" fill="#CE978B" stroke="#383B3F" stroke-width="3"/>
-              <text x="495" y="88" font-size="12" font-weight="bold" fill="#323538">穴水站</text>
+              <circle cx="515" cy="108" r="8" fill="#CE978B" stroke="#3D4045" stroke-width="3"/>
+              <text x="495" y="88" font-size="12" font-weight="bold" fill="#34373B">穴水站</text>
               <text x="458" y="133" font-size="10.5" fill="#6C7076">12/11 震災語り部列車</text>
-              <text x="34" y="178" font-size="12" font-weight="bold" fill="#323538">📍 12/10 包車：七尾 → 白丸(神田區長) → 寶立(宮口導覽/午餐) → 輪島朝市 → 和倉溫泉</text>
+              <text x="34" y="178" font-size="12" font-weight="bold" fill="#34373B">📍 12/10 包車：七尾 → 白丸(神田區長) → 寶立(宮口導覽/午餐) → 輪島朝市 → 和倉溫泉</text>
             </svg>
           </div>
           <div class="map-card-footer">
@@ -876,12 +880,12 @@
     </div>
   </section>
 
-  <!-- PAGE 5: 景點與 Google Maps 清單 -->
+  <!-- PAGE 5: 景點與 Google Maps 清單（含周邊推薦餐點與景點） -->
   <section id="page-places" class="page">
     <div class="sec-header">
       <div class="sec-title-group">
         <div class="sec-icon" style="background:var(--m-rose-soft);">🗺️</div>
-        <h2>Google Maps 景點與美食清單</h2>
+        <h2>Google Maps 景點與周邊美食推薦</h2>
       </div>
       <button class="btn-pill rose" onclick="openPlaceModal()">＋ 新增地點</button>
     </div>
@@ -896,7 +900,7 @@
         <div class="chip-row" id="areaChips"></div>
       </div>
       <div class="filter-group" style="margin-bottom:0;">
-        <span class="filter-label">餐點種類 / 飲食標籤</span>
+        <span class="filter-label">餐點種類 / 飲食標籤（均標示無牛肉友善選項）</span>
         <div class="chip-row" id="foodChips"></div>
       </div>
     </div>
@@ -929,42 +933,50 @@
     <div id="packingContainer"></div>
   </section>
 
-  <!-- PAGE 7: 團員（只保留姓名）與日方窗口 -->
+  <!-- PAGE 7: 團員（保留姓名、英文拼寫、職稱與分工）與日方窗口 -->
   <section id="page-people" class="page">
     <div class="sec-header">
       <div class="sec-title-group">
         <div class="sec-icon" style="background:var(--m-plum-soft);">👥</div>
-        <h2>出國人員與日方窗口</h2>
+        <h2>考察團員與日方窗口</h2>
       </div>
-      <span class="sec-hint">共 3 名出國人員＋隨行通譯</span>
+      <span class="sec-hint">內政部消防署（共 4 名）</span>
     </div>
 
     <div class="person-grid">
       <div class="person-card">
         <div class="avatar" style="background:var(--m-blue);">邱</div>
         <div class="p-info">
-          <h4>邱景祥</h4>
+          <h4>邱景祥<span class="p-en">Chiu Jing-Shiang</span></h4>
+          <div class="p-role">災害管理組 組長（團長）</div>
+          <div class="p-sub">分工：總領隊與公務拜會代表</div>
         </div>
       </div>
 
       <div class="person-card">
         <div class="avatar" style="background:var(--m-sage);">許</div>
         <div class="p-info">
-          <h4>許書銘</h4>
+          <h4>許書銘<span class="p-en">Hsu Shu-Ming</span></h4>
+          <div class="p-role">災害管理組 科長</div>
+          <div class="p-sub">分工：社區防災與全社會防衛韌性業務交流</div>
         </div>
       </div>
 
       <div class="person-card">
         <div class="avatar" style="background:var(--m-rose);">蘇</div>
         <div class="p-info">
-          <h4>蘇筱琁</h4>
+          <h4>蘇筱琁<span class="p-en">Su Hsiao-Hsuan</span></h4>
+          <div class="p-role">災害管理組 視察（承辦人）</div>
+          <div class="p-sub">分工：行程統籌、日方窗口聯繫與防災士業務</div>
         </div>
       </div>
 
       <div class="person-card">
         <div class="avatar" style="background:var(--m-plum);">譯</div>
         <div class="p-info">
-          <h4>隨行通譯</h4>
+          <h4>隨行日文通譯<span class="p-en">Interpreter</span></h4>
+          <div class="p-role">專業日文口譯人員（1 名）</div>
+          <div class="p-sub">分工：12/07（一）– 12/11（五）全程陪同口譯</div>
         </div>
       </div>
     </div>
@@ -1044,9 +1056,9 @@
         <option value="石川・能登/七尾/輪島">石川・能登/七尾/輪島</option>
       </select>
     </div>
-    <div class="form-row"><label>餐點種類 / 飲食標籤</label><input type="text" id="plFood" placeholder="例如：海鮮・無牛肉、拉麵、和菓子、無" /></div>
+    <div class="form-row"><label>餐點種類 / 飲食標籤</label><input type="text" id="plFood" placeholder="例如：海鮮・無牛肉、炸豬排、拉麵、和菓子、無" /></div>
     <div class="form-row"><label>Google Maps 連結（留白自動搜尋）</label><input type="url" id="plUrl" placeholder="https://maps.app.goo.gl/..." /></div>
-    <div class="form-row"><label>備註</label><input type="text" id="plNote" placeholder="例如：12/8 餐敘地點" /></div>
+    <div class="form-row"><label>備註</label><input type="text" id="plNote" placeholder="例如：距離飯店步行3分鐘" /></div>
     <div class="modal-btns">
       <button class="btn-sm" onclick="closeModal('placeModal')">取消</button>
       <button class="btn-pill rose" onclick="savePlaceItem()">新增</button>
@@ -1076,7 +1088,7 @@ const DEFAULT_DAYS = [
     stay: "住宿：ホテル京阪 東京四谷（〒160-0004 東京都新宿区四谷1丁目24）",
     items: [
       { dep: "08:50", arr: "12:55", trans: "長榮航空 BR198 ✈️", title: "桃園國際機場 → 日本成田機場", loc: "桃園國際機場 → 成田機場", note: "出發（移動日）・調整日。", gift: "" },
-      { dep: "13:59", arr: "14:43", trans: "京成電鐵 🚆", title: "成田機場 → 東京市區（前往四谷飯店入住）", loc: "ホテル京阪 東京四谷（新宿区四谷1丁目24）", note: "抵達後辦理入住並確認隔日行程與伴手禮分配。", gift: "" }
+      { dep: "13:59", arr: "14:43", trans: "京成電鐵 🚆", title: "成田機場 → 東京市區（前往四谷飯店入住）", loc: "ホテル京阪 東京四谷（新宿区四谷1丁目24）", note: "抵達後辦理入住，晚餐可就近在四谷站周邊品嚐炸豬排或日式居酒屋。", gift: "" }
     ]
   },
   {
@@ -1093,7 +1105,7 @@ const DEFAULT_DAYS = [
     title: "Day 3｜12月8日（二）東京消防廳・本所防災館・餐敘",
     stay: "住宿：ホテル京阪 東京四谷（〒160-0004 東京都新宿区四谷1丁目24）",
     items: [
-      { dep: "11:00", arr: "11:30", trans: "東京地鐵丸之內線 🚇", title: "拜會東京消防廳本部（幹部致意、會面）", loc: "〒100-8119 東京都千代田區大手町 1-3-5（1樓大廳集合）", note: "佐伯先生最新確認排程至 11:45（1樓大廳迎接）。\n窗口：総務課国際業務係 佐伯先生（03-3212-2111 内線2587）", gift: "🎁 送禮：主禮 大鳳梨酥、茶葉｜佐伯：花生糖" },
+      { dep: "11:00", arr: "11:45", trans: "東京地鐵丸之內線 🚇", title: "拜會東京消防廳本部（防災部長面會及意見交換）", loc: "〒100-8119 東京都千代田區大手町 1-3-5（1樓大廳集合）", note: "11:00–11:45 幹部致意與業務意見交換（1樓大廳由佐伯先生迎接）。\n窗口：総務課国際業務係 佐伯先生（03-3212-2111 内線2587）", gift: "🎁 送禮：主禮 大鳳梨酥、茶葉｜佐伯：花生糖" },
       { dep: "15:00", arr: "16:45", trans: "東京地鐵 / JR 🚆", title: "參訪東京防災館（本所防災館）防災體驗", loc: "〒130-0003 東京都墨田区横川4丁目6-6", note: "常規防災體驗（VR、地震、煙霧、防災短片）。", gift: "🎁 送禮：主禮 花生糖、茶葉｜解說員：花生糖" },
       { dep: "18:00", arr: "晚間", trans: "東京地鐵 / 步行 🚶", title: "晚餐餐敘：Tenshige", loc: "〒107-0052 東京都港区赤坂3丁目12-10 赤坂サンビル 6階", note: "出席：石川昭政 眾議員、岩澤先生、玉田先生。", gift: "🎁 送禮：石川（威士忌、花生糖）｜岩澤（威士忌、花生糖）｜玉田（茶葉禮盒、花生糖）" }
     ]
@@ -1105,7 +1117,7 @@ const DEFAULT_DAYS = [
     items: [
       { dep: "07:20", arr: "09:44", trans: "北陸新幹線 🚄", title: "06:45 飯店出發 → 搭乘北陸新幹線前往金澤", loc: "四谷京阪飯店 → 東京站 → 金澤站", note: "06:45 準時自飯店出發前往東京站搭車。", gift: "" },
       { dep: "10:30", arr: "11:30", trans: "計程車 🚕", title: "拜會石川縣廳 / 業務說明（19樓展望台）", loc: "〒920-8580 石川県金沢市鞍月1丁目1番地", note: "・向石川縣危機管理部長致意（約5分鐘）\n・危機管理政策課長主持情況說明與意見交流（約30–40分鐘）\n窗口：危機管理政策課 主任 淺見和希（076-225-1488 分機4232）", gift: "🎁 送禮：套幣、大鳳梨酥、茶葉｜淺見：花生糖" },
-      { dep: "下午", arr: "傍晚", trans: "JR七尾線 / IR石川鐵道 🚃", title: "金澤轉搭鐵路前往七尾市入住", loc: "金澤站 → 七尾站（Hotel Route Inn Nanao Ekihigashi）", note: "辦理七尾站東露櫻酒店入住。", gift: "" }
+      { dep: "下午", arr: "傍晚", trans: "JR七尾線 / IR石川鐵道 🚃", title: "金澤午餐（近江町市場或金澤站壽司）→ 搭鐵路往七尾入住", loc: "金澤站 → 七尾站（Hotel Route Inn Nanao Ekihigashi）", note: "辦理七尾站東露櫻酒店入住；傍晚可至七尾食祭市場或周邊用餐。", gift: "" }
     ]
   },
   {
@@ -1122,7 +1134,7 @@ const DEFAULT_DAYS = [
     stay: "住宿：APA Hotel Ueno Ekiminami（〒110-0005 東京都台東区上野6-7-21）",
     items: [
       { dep: "10:00", arr: "13:00", trans: "能登鐵道 🚃", title: "搭乘「震災語り部列車」與社長談話", loc: "七尾站 10:00 → 穴水站 10:45 ／ 穴水站 12:09 → 七尾站 12:54", note: "・去程：普通列車 601D 七尾 10:00 － 穴水 10:45\n・抵達穴水站後：社長談話 約 11:00 － 11:50\n・回程：震災故事講述觀光列車 2 號 穴水 12:09 － 七尾 12:54\n窗口：能登鐵道 東井 豊記 先生（0768-52-0900）", gift: "🎁 送禮：社長（茶葉、小鳳梨酥）｜東井（小鳳梨酥）" },
-      { dep: "下午", arr: "晚間", trans: "鐵路 → 北陸新幹線 🚄", title: "返回金澤後搭新幹線前往東京上野入住", loc: "七尾站 → 金澤站 → 上野（APA Hotel Ueno Ekiminami）", note: "入住 APA 飯店上野站南（東京都台東区上野6-7-21）。", gift: "" }
+      { dep: "下午", arr: "晚間", trans: "鐵路 → 北陸新幹線 🚄", title: "返回金澤後搭新幹線前往東京上野入住", loc: "七尾站 → 金澤站 → 上野（APA Hotel Ueno Ekiminami）", note: "入住 APA 飯店上野站南；晚間可逛阿美橫丁採買與吃壽司／炸豬排。", gift: "" }
     ]
   },
   {
@@ -1137,18 +1149,34 @@ const DEFAULT_DAYS = [
 ];
 
 const DEFAULT_PLACES = [
-  { name: "日本防災士研修中心・機構・協會（砂防會館別館7樓）", cat: "景點", area: "東京・四谷/赤坂/新宿", food: "無", url: "https://www.google.com/maps/search/?api=1&query=東京都千代田区平河町2-7-4+砂防会館別館", note: "12/7 上午拜會地點（平河町）" },
-  { name: "神田川・環七地下調節池（善福寺川取水設施）", cat: "景點", area: "東京・杉並/墨田", food: "無", url: "https://www.google.com/maps/search/?api=1&query=東京都杉並区堀ノ内2-1-1", note: "12/7 14:45 方南町站剪票口集合，1號出口步行約10分" },
-  { name: "東京消防廳本部", cat: "景點", area: "東京・大手町/上野", food: "無", url: "https://www.google.com/maps/search/?api=1&query=東京都千代田区大手町1-3-5", note: "12/8 11:00 拜會防災部長（1樓大廳集合）" },
-  { name: "本所防災館（東京防災館）", cat: "景點", area: "東京・杉並/墨田", food: "無", url: "https://www.google.com/maps/search/?api=1&query=東京都墨田区横川4-6-6", note: "12/8 15:00 防災體驗" },
-  { name: "Tenshige（赤坂サンビル 6階）", cat: "餐廳", area: "東京・四谷/赤坂/新宿", food: "日式料理・無牛肉備註", url: "https://www.google.com/maps/search/?api=1&query=東京都港区赤坂3-12-10+赤坂サンビル", note: "12/8 18:00 與石川議員、岩澤先生、玉田先生餐敘" },
-  { name: "上野阿美橫丁＆周邊藥妝伴手禮", cat: "逛街", area: "東京・大手町/上野", food: "無", url: "https://www.google.com/maps/search/?api=1&query=上野+アメ横", note: "12/11 晚間住 APA 上野站南，步行即可採買" },
-  { name: "T's たんたん 東京站京葉街店", cat: "素食", area: "東京・大手町/上野", food: "全素・拉麵・無牛肉", url: "https://www.google.com/maps/search/?api=1&query=Ts+たんたん+東京駅", note: "東京站內純素拉麵，搭新幹線前後方便用餐" },
-  { name: "石川縣廳（19樓展望台）", cat: "景點", area: "石川・金澤", food: "無", url: "https://www.google.com/maps/search/?api=1&query=石川県金沢市鞍月1-1", note: "12/9 10:30 拜會危機管理部" },
-  { name: "金澤百番街（加賀棒茶・和菓子）", cat: "點心", area: "石川・金澤", food: "和菓子・甜點", url: "https://www.google.com/maps/search/?api=1&query=金沢百番街", note: "金澤站內茶點與伴手禮聚集地" },
-  { name: "珠洲市寶立地區拉麵店（包車午餐）", cat: "餐廳", area: "石川・能登/七尾/輪島", food: "拉麵・無牛肉", url: "https://www.google.com/maps/search/?api=1&query=珠洲市宝立町", note: "12/10 12:20 寶立導覽後用餐（森崎先生協助訂位）" },
-  { name: "輪島朝市火災遺跡・和倉溫泉", cat: "景點", area: "石川・能登/七尾/輪島", food: "無", url: "https://www.google.com/maps/search/?api=1&query=和倉温泉", note: "12/10 下午震災現地勘查" },
-  { name: "能登鐵道 七尾站 ⇄ 穴水站", cat: "景點", area: "石川・能登/七尾/輪島", food: "無", url: "https://www.google.com/maps/search/?api=1&query=のと鉄道+七尾駅", note: "12/11 10:00 震災語り部列車" }
+  /* 考察核心地點 */
+  { name: "日本防災士研修中心・機構・協會（砂防會館別館7樓）", cat: "景點", area: "東京・四谷/赤坂/新宿", food: "無", rec: false, url: "https://www.google.com/maps/search/?api=1&query=東京都千代田区平河町2-7-4+砂防会館別館", note: "12/7 上午拜會地點（平河町）" },
+  { name: "神田川・環七地下調節池（善福寺川取水設施）", cat: "景點", area: "東京・杉並/墨田", food: "無", rec: false, url: "https://www.google.com/maps/search/?api=1&query=東京都杉並区堀ノ内2-1-1", note: "12/7 14:45 方南町站剪票口集合，1號出口步行約10分" },
+  { name: "東京消防廳本部", cat: "景點", area: "東京・大手町/上野", food: "無", rec: false, url: "https://www.google.com/maps/search/?api=1&query=東京都千代田区大手町1-3-5", note: "12/8 11:00 拜會防災部長（1樓大廳集合）" },
+  { name: "本所防災館（東京防災館）", cat: "景點", area: "東京・杉並/墨田", food: "無", rec: false, url: "https://www.google.com/maps/search/?api=1&query=東京都墨田区横川4-6-6", note: "12/8 15:00 防災體驗" },
+  { name: "Tenshige（赤坂サンビル 6階）", cat: "餐廳", area: "東京・四谷/赤坂/新宿", food: "日式料理・無牛肉備註", rec: false, url: "https://www.google.com/maps/search/?api=1&query=東京都港区赤坂3-12-10+赤坂サンビル", note: "12/8 18:00 與石川議員、岩澤先生、玉田先生餐敘" },
+  { name: "石川縣廳（19樓展望台）", cat: "景點", area: "石川・金澤", food: "無", rec: false, url: "https://www.google.com/maps/search/?api=1&query=石川県金沢市鞍月1-1", note: "12/9 10:30 拜會危機管理部" },
+  { name: "珠洲市寶立地區拉麵店（包車午餐）", cat: "餐廳", area: "石川・能登/七尾/輪島", food: "拉麵・無牛肉", rec: false, url: "https://www.google.com/maps/search/?api=1&query=珠洲市宝立町", note: "12/10 12:20 寶立導覽後用餐（森崎先生協助訂位）" },
+  { name: "能登鐵道 七尾站 ⇄ 穴水站", cat: "景點", area: "石川・能登/七尾/輪島", food: "無", rec: false, url: "https://www.google.com/maps/search/?api=1&query=のと鉄道+七尾駅", note: "12/11 10:00 震災語り部列車" },
+
+  /* 四谷飯店周邊推薦 */
+  { name: "かつれつ四谷たけだ（四谷武田炸豬排）", cat: "餐廳", area: "東京・四谷/赤坂/新宿", food: "炸豬排・冬季牡蠣・無牛肉", rec: true, url: "https://www.google.com/maps/search/?api=1&query=かつれつ四谷たけだ", note: "四谷站步行2分超人氣名店！12月限定「奶油煎牡蠣（カキバター焼）」與炸豬排必點。" },
+  { name: "たいやき わかば（若葉鯛魚燒）", cat: "點心", area: "東京・四谷/赤坂/新宿", food: "和菓子・甜點", rec: true, url: "https://www.google.com/maps/search/?api=1&query=たいやき+わかば+四谷", note: "東京三大鯛魚燒名店之一，距離四谷京阪飯店步行約5分鐘，微鹹紅豆餡酥脆不膩。" },
+  { name: "迎賓館赤坂離宮", cat: "景點", area: "東京・四谷/赤坂/新宿", food: "無", rec: true, url: "https://www.google.com/maps/search/?api=1&query=迎賓館赤坂離宮", note: "距離四谷站步行約7分鐘，壯麗的歐式宮殿建築與庭園，適合空檔散步拍照。" },
+  { name: "須賀神社（《你的名字》階梯）", cat: "景點", area: "東京・四谷/赤坂/新宿", food: "無", rec: true, url: "https://www.google.com/maps/search/?api=1&query=四谷+須賀神社", note: "四谷知名動畫取景階梯，步行約10分鐘可達。" },
+
+  /* 上野・東京站周邊推薦 */
+  { name: "とんかつ 山家 上野店（山家炸豬排）", cat: "餐廳", area: "東京・大手町/上野", food: "炸豬排・無牛肉", rec: true, url: "https://www.google.com/maps/search/?api=1&query=とんかつ山家+上野店", note: "距離 APA 上野站南步行約3分鐘，高CP值現炸厚切腰內／里肌豬排。" },
+  { name: "三浦三崎港 迴轉壽司 上野店", cat: "餐廳", area: "東京・大手町/上野", food: "海鮮・壽司・無牛肉", rec: true, url: "https://www.google.com/maps/search/?api=1&query=まぐろ問屋+三浦三崎港+上野店", note: "阿美橫丁旁人氣爆盛海鮮壽司，12/11 晚間入住上野可直接步行用餐。" },
+  { name: "みはし 上野本店（Mihashi 餡蜜）", cat: "點心", area: "東京・大手町/上野", food: "和菓子・甜點", rec: true, url: "https://www.google.com/maps/search/?api=1&query=あんみつ+みはし+上野本店", note: "昭和23年創業的老字號日式甜品店，抹茶冰淇淋餡蜜與熱紅豆湯很適合12月冬天。" },
+  { name: "T's たんたん 東京站京葉街店", cat: "素食", area: "東京・大手町/上野", food: "全素・拉麵・無牛肉", rec: true, url: "https://www.google.com/maps/search/?api=1&query=Ts+たんたん+東京駅", note: "東京站內人氣純素擔擔麵，轉乘北陸新幹線前後用餐非常方便。" },
+  { name: "上野阿美橫丁＆多慶屋・藥妝街", cat: "逛街", area: "東京・大手町/上野", food: "無", rec: true, url: "https://www.google.com/maps/search/?api=1&query=上野+アメ横", note: "12/11 晚間住 APA 上野站南，步行2分鐘即可採買藥妝、零食與伴手禮。" },
+
+  /* 金澤・七尾・能登周邊推薦 */
+  { name: "もりもり寿し 金澤站前店（Forus 6F）", cat: "餐廳", area: "石川・金澤", food: "海鮮・壽司・無牛肉", rec: true, url: "https://www.google.com/maps/search/?api=1&query=もりもり寿し+金沢駅前店", note: "北陸必吃迴轉壽司，12月正值寒鰤魚、喉黑魚與松葉蟹季節，金澤站旁交通超便利。" },
+  { name: "近江町市場（金澤人的廚房）", cat: "餐廳", area: "石川・金澤", food: "海鮮・無牛肉", rec: true, url: "https://www.google.com/maps/search/?api=1&query=近江町市場", note: "12/9 拜會石川縣廳後若有空檔，可來品嚐新鮮海鮮丼與現烤扇貝。" },
+  { name: "金澤百番街（加賀棒茶・和菓子）", cat: "點心", area: "石川・金澤", food: "和菓子・甜點", rec: true, url: "https://www.google.com/maps/search/?api=1&query=金沢百番街", note: "金澤站內伴手禮與茶點聚集地，推薦加賀棒茶、金箔蛋糕與きんつば。" },
+  { name: "能登食祭市場（七尾港海鮮市場）", cat: "餐廳", area: "石川・能登/七尾/輪島", food: "海鮮・無牛肉", rec: true, url: "https://www.google.com/maps/search/?api=1&query=能登食祭市場", note: "距離七尾站步行約10–12分鐘，集結能登新鮮海產、濱燒海鮮與當地土產。" }
 ];
 
 const DEFAULT_PACKING = [
@@ -1178,7 +1206,7 @@ const DEFAULT_PACKING = [
   ]}
 ];
 
-const KEY_PREFIX = "morandi_eva_jp_2026_v5_";
+const KEY_PREFIX = "morandi_eva_jp_2026_v6_";
 let tripData = JSON.parse(localStorage.getItem(KEY_PREFIX + "days")) || JSON.parse(JSON.stringify(DEFAULT_DAYS));
 let placeData = JSON.parse(localStorage.getItem(KEY_PREFIX + "places")) || JSON.parse(JSON.stringify(DEFAULT_PLACES));
 let customMaps = JSON.parse(localStorage.getItem(KEY_PREFIX + "maps")) || [];
@@ -1360,7 +1388,7 @@ function closeZoom() { document.getElementById("zoomModal").classList.remove("op
 function renderPlaces() {
   const cats = ["全部", "景點", "餐廳", "逛街", "素食", "點心"];
   const areas = ["全部", "東京・四谷/赤坂/新宿", "東京・大手町/上野", "東京・杉並/墨田", "石川・金澤", "石川・能登/七尾/輪島"];
-  const foods = ["全部", "無牛肉", "拉麵", "日式料理", "全素", "和菓子"];
+  const foods = ["全部", "無牛肉", "海鮮", "炸豬排", "拉麵", "和菓子", "全素"];
 
   document.getElementById("catChips").innerHTML = cats.map(c => `<span class="chip ${filterCat===c?'active':''}" onclick="filterCat='${c}';renderPlaces()">${c}</span>`).join("");
   document.getElementById("areaChips").innerHTML = areas.map(a => `<span class="chip area ${filterArea===a?'active':''}" onclick="filterArea='${a}';renderPlaces()">${a}</span>`).join("");
@@ -1384,6 +1412,7 @@ function renderPlaces() {
         <span class="tag tag-cat">${p.cat}</span>
         <span class="tag tag-area">${p.area}</span>
         ${p.food && p.food !== "無" ? `<span class="tag ${p.cat==='素食'?'tag-veg':'tag-food'}">🍽️ ${p.food}</span>` : ""}
+        ${p.rec ? `<span class="tag tag-rec">✨ 周邊推薦</span>` : ""}
       </div>
       <div class="place-header">
         <h4>${p.name}</h4>
@@ -1407,6 +1436,7 @@ function savePlaceItem() {
     cat: document.getElementById("plCat").value,
     area: document.getElementById("plArea").value,
     food: document.getElementById("plFood").value.trim() || "無",
+    rec: false,
     url: rawUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`,
     note: document.getElementById("plNote").value.trim()
   });
