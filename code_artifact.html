@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>赴日防災考察行程手冊（12/6–12/12）</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF6F0',
+            latte: '#F2EAE0',
+            milktea: '#DFCBB5',
+            milkteaDark: '#C8AE91',
+            mocha: '#8C6A4A',
+            mochaDark: '#6E5034',
+            espresso: '#3B2F26',
+            espressoLight: '#635246',
+            sandBorder: '#E3D5C5'
+          },
+          fontFamily: {
+            jhenghei: ['"Microsoft JhengHei"', '"PingFang TC"', '"Noto Sans TC"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    * {
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #FAF6F0;
+      color: #3B2F26;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* 手冊紙張微質感與卡片陰影 */
+    .handbook-card {
+      background-color: #FFFFFF;
+      border: 1px solid #E3D5C5;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(140, 106, 74, 0.06);
+    }
+    .handbook-tab-active {
+      background-color: #8C6A4A;
+      color: #FAF6F0;
+      box-shadow: 0 2px 8px rgba(140, 106, 74, 0.25);
+    }
+    .handbook-tab-inactive {
+      background-color: #F2EAE0;
+      color: #635246;
+    }
+    .handbook-tab-inactive:hover {
+      background-color: #E6DACB;
+    }
+    /* 隱藏橫向捲軸但保留滑動能力 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* 燈箱放大查看畫布 */
+    .lightbox-stage {
+      touch-action: none;
+      cursor: grab;
+    }
+    .lightbox-stage:active {
+      cursor: grabbing;
+    }
+  </style>
+</head>
+<body class="bg-cream text-espresso min-h-screen flex flex-col">
+
+  <!-- Toast 提示訊息區（取代 alert） -->
+  <div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 w-[92%] max-w-md pointer-events-none"></div>
+
+  <!-- 頂部手冊標題區 -->
+  <header class="bg-latte border-b border-sandBorder sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-4 py-3 sm:py-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-milktea text-espresso text-xs font-bold mb-1">
+            <i class="fa-solid fa-book-open text-mocha"></i>
+            <span>內政部消防署・訪日防災考察手冊</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-wide text-espresso">
+            赴日防災考察行程手冊 <span class="text-mocha text-base sm:text-lg font-normal">（12/6 – 12/12）</span>
+          </h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            onclick="openQuickInfoModal()"
+            class="px-3 py-2 rounded-xl bg-white hover:bg-milktea/50 text-espresso border border-sandBorder text-xs sm:text-sm font-bold flex items-center gap-1.5 transition active:scale-95"
+          >
+            <i class="fa-solid fa-address-book text-mocha"></i>
+            <span>住宿與窗口總覽</span>
+          </button>
+          <button
+            type="button"
+            onclick="openResetConfirm()"
+            title="重設為預設行程資料"
+            class="px-3 py-2 rounded-xl bg-white hover:bg-red-50 text-espressoLight hover:text-red-700 border border-sandBorder text-xs sm:text-sm font-bold flex items-center gap-1 transition active:scale-95"
+          >
+            <i class="fa-solid fa-rotate-left"></i>
+            <span class="hidden sm:inline">重設預設</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 三大主分頁導覽列：每日行程 / 地鐵 / 景點 -->
+      <nav class="grid grid-cols-3 gap-2 mt-3" aria-label="主要分頁">
+        <button
+          id="mainTab-itinerary"
+          type="button"
+          onclick="switchMainTab('itinerary')"
+          class="py-2.5 px-3 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition handbook-tab-active"
+        >
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>每日行程</span>
+        </button>
+        <button
+          id="mainTab-subway"
+          type="button"
+          onclick="switchMainTab('subway')"
+          class="py-2.5 px-3 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition handbook-tab-inactive"
+        >
+          <i class="fa-solid fa-train-subway"></i>
+          <span>地鐵</span>
+        </button>
+        <button
+          id="mainTab-places"
+          type="button"
+          onclick="switchMainTab('places')"
+          class="py-2.5 px-3 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition handbook-tab-inactive"
+        >
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span>景點</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主內容區塊 -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-3 sm:px-6 py-5 space-y-5">
+
+    <!-- ==================== 分頁 1：每日行程 ==================== -->
+    <section id="section-itinerary" class="space-y-4">
+      <!-- 日期篩選列 + 新增行程按鈕 -->
+      <div class="handbook-card p-3 sm:p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div id="dateFilterBar" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
+            <!-- 由 JS 動態產生 12/6 ~ 12/12 與 全部 -->
+          </div>
+          <button
+            type="button"
+            onclick="openItineraryModal()"
+            class="w-full sm:w-auto shrink-0 px-4 py-2.5 rounded-xl bg-mocha hover:bg-mochaDark text-cream font-bold text-sm flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95"
+          >
+            <i class="fa-solid fa-plus"></i>
+            <span>新增行程</span>
+          </button>
+        </div>
+
+        <!-- 當日住宿與重點提示條 -->
+        <div id="dayMetaBanner" class="mt-3 pt-3 border-t border-sandBorder flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm text-espressoLight">
+          <!-- 由 JS 動態更新 -->
+        </div>
+      </div>
+
+      <!-- 行程列表容器 -->
+      <div id="itineraryListContainer" class="space-y-3">
+        <!-- 由 JS 動態渲染行程卡片 -->
+      </div>
+    </section>
+
+    <!-- ==================== 分頁 2：地鐵 ==================== -->
+    <section id="section-subway" class="hidden space-y-4">
+      <div class="handbook-card p-4 sm:p-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-espresso flex items-center gap-2">
+              <i class="fa-solid fa-route text-mocha"></i>
+              <span>路線圖與地鐵參考圖</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-espressoLight mt-0.5">
+              點擊任一圖卡即可全螢幕放大查看；亦可上傳手機或電腦中的路線圖截圖。
+            </p>
+          </div>
+          <label class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-mocha hover:bg-mochaDark text-cream font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition active:scale-95">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>上傳圖片</span>
+            <input id="subwayUploadInput" type="file" accept="image/*" multiple class="hidden" onchange="handleSubwayUpload(event)" />
+          </label>
+        </div>
+
+        <!-- 地鐵與路線圖網格 -->
+        <div id="subwayGallery" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- 由 JS 動態渲染內建 SVG 路線圖 + 使用者上傳圖片 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 分頁 3：景點 ==================== -->
+    <section id="section-places" class="hidden space-y-4">
+      <!-- 篩選與新增景點面板 -->
+      <div class="handbook-card p-4 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-espresso flex items-center gap-2">
+              <i class="fa-solid fa-location-dot text-mocha"></i>
+              <span>Google Maps 考察與美食景點清單</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-espressoLight">
+              依類別、區域與餐點種類標籤快速篩選，點選「開啟 Google Maps」可直接導航。
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="openPlaceModal()"
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-mocha hover:bg-mochaDark text-cream font-bold text-sm flex items-center justify-center gap-1.5 transition active:scale-95"
+          >
+            <i class="fa-solid fa-plus"></i>
+            <span>新增地點</span>
+          </button>
+        </div>
+
+        <!-- 分類標籤列（全部 / 景點 / 餐廳 / 逛街 / 素食 / 點心） -->
+        <div>
+          <span class="block text-xs font-bold text-espressoLight mb-1.5">分類篩選</span>
+          <div id="placeCategoryBar" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+            <!-- 由 JS 動態產生 -->
+          </div>
+        </div>
+
+        <!-- 區域與餐點種類標籤列 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div>
+            <label for="placeAreaSelect" class="block text-xs font-bold text-espressoLight mb-1">區域篩選</label>
+            <select
+              id="placeAreaSelect"
+              onchange="renderPlaces()"
+              class="w-full px-3 py-2 rounded-xl bg-cream border border-sandBorder text-sm text-espresso font-bold focus:outline-none focus:border-mocha"
+            >
+              <option value="全部">全部區域</option>
+              <option value="東京">東京</option>
+              <option value="金澤">金澤</option>
+              <option value="七尾/輪島/穴水">七尾 / 輪島 / 穴水</option>
+            </select>
+          </div>
+          <div>
+            <label for="placeFoodTagSelect" class="block text-xs font-bold text-espressoLight mb-1">餐點種類標籤</label>
+            <select
+              id="placeFoodTagSelect"
+              onchange="renderPlaces()"
+              class="w-full px-3 py-2 rounded-xl bg-cream border border-sandBorder text-sm text-espresso font-bold focus:outline-none focus:border-mocha"
+            >
+              <option value="全部">全部餐點標籤</option>
+              <option value="海鮮">海鮮</option>
+              <option value="非牛肉料理">非牛肉料理</option>
+              <option value="蔬食/素食">蔬食 / 素食</option>
+              <option value="點心/伴手禮">點心 / 伴手禮</option>
+              <option value="無適用">無適用（非餐飲）</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 景點清單容器 -->
+      <div id="placesListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <!-- 由 JS 動態渲染景點卡片 -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== 行程新增 / 編輯 Modal ==================== -->
+  <div id="itineraryModal" class="fixed inset-0 z-50 hidden bg-espresso/50 backdrop-blur-[1px] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-cream border border-sandBorder rounded-2xl max-w-lg w-full p-5 shadow-xl my-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-sandBorder">
+        <h3 id="itineraryModalTitle" class="text-lg font-bold text-espresso">新增行程項目</h3>
+        <button type="button" onclick="closeItineraryModal()" class="p-1.5 rounded-lg text-espressoLight hover:bg-latte">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="itineraryForm" onsubmit="saveItineraryItem(event)" class="mt-4 space-y-3 text-sm">
+        <input type="hidden" id="itinEditId" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold mb-1">日期</label>
+            <select id="itinDate" required class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha">
+              <option value="12/6">12/6（日）</option>
+              <option value="12/7">12/7（一）</option>
+              <option value="12/8">12/8（二）</option>
+              <option value="12/9">12/9（三）</option>
+              <option value="12/10">12/10（四）</option>
+              <option value="12/11">12/11（五）</option>
+              <option value="12/12">12/12（六）</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold mb-1">出發時間</label>
+            <input id="itinDepart" type="text" placeholder="例如：06:45 或 14:45" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha" />
+          </div>
+          <div>
+            <label class="block font-bold mb-1">抵達時間</label>
+            <input id="itinArrive" type="text" placeholder="例如：09:44 或 16:00" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold mb-1">交通工具</label>
+            <input id="itinTransport" type="text" placeholder="例如：北陸新幹線、東京地鐵、包車" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha" />
+          </div>
+          <div>
+            <label class="block font-bold mb-1">行程／地點名稱 *</label>
+            <input id="itinTitle" type="text" required placeholder="請輸入地點或行程名稱" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1">出席長官／窗口／送禮備註</label>
+          <input id="itinContactGift" type="text" placeholder="例如：窗口：尾身課長｜出席：牛嶋危機管理監｜備主禮" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha" />
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1">交流議題／補充說明</label>
+          <textarea id="itinNotes" rows="3" placeholder="填寫重點交流議題、集合剪票口或注意事項..." class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeItineraryModal()" class="px-4 py-2 rounded-xl bg-latte text-espresso font-bold hover:bg-milktea/70 transition">
+            取消
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-mocha text-cream font-bold hover:bg-mochaDark transition">
+            儲存行程
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== 景點新增 Modal ==================== -->
+  <div id="placeModal" class="fixed inset-0 z-50 hidden bg-espresso/50 backdrop-blur-[1px] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-cream border border-sandBorder rounded-2xl max-w-lg w-full p-5 shadow-xl my-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-sandBorder">
+        <h3 class="text-lg font-bold text-espresso">新增景點／餐廳地點</h3>
+        <button type="button" onclick="closePlaceModal()" class="p-1.5 rounded-lg text-espressoLight hover:bg-latte">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="placeForm" onsubmit="savePlaceItem(event)" class="mt-4 space-y-3 text-sm">
+        <div>
+          <label class="block font-bold mb-1">地點名稱 *</label>
+          <input id="placeName" type="text" required placeholder="例如：東京防災館" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold mb-1">分類</label>
+            <select id="placeCategory" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha">
+              <option value="景點">景點</option>
+              <option value="餐廳">餐廳</option>
+              <option value="逛街">逛街</option>
+              <option value="素食">素食</option>
+              <option value="點心">點心</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold mb-1">區域</label>
+            <select id="placeArea" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha">
+              <option value="東京">東京</option>
+              <option value="金澤">金澤</option>
+              <option value="七尾/輪島/穴水">七尾/輪島/穴水</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold mb-1">餐點種類標籤</label>
+            <select id="placeFoodTag" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha">
+              <option value="無適用">無適用</option>
+              <option value="海鮮">海鮮</option>
+              <option value="非牛肉料理">非牛肉料理</option>
+              <option value="蔬食/素食">蔬食/素食</option>
+              <option value="點心/伴手禮">點心/伴手禮</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1">地址或備註說明</label>
+          <input id="placeNote" type="text" placeholder="例如：14:45 方南町站集合、近車站步行10分" class="w-full px-3 py-2 rounded-xl bg-white border border-sandBorder focus:outline-none focus:border-mocha" />
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closePlaceModal()" class="px-4 py-2 rounded-xl bg-latte text-espresso font-bold hover:bg-milktea/70 transition">
+            取消
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-mocha text-cream font-bold hover:bg-mochaDark transition">
+            加入清單
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== 住宿與窗口總覽 Modal ==================== -->
+  <div id="quickInfoModal" class="fixed inset-0 z-50 hidden bg-espresso/50 backdrop-blur-[1px] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-cream border border-sandBorder rounded-2xl max-w-2xl w-full p-5 shadow-xl my-auto space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-sandBorder">
+        <h3 class="text-lg font-bold text-espresso flex items-center gap-2">
+          <i class="fa-solid fa-hotel text-mocha"></i>
+          <span>住宿飯店與重點對接窗口</span>
+        </h3>
+        <button type="button" onclick="closeQuickInfoModal()" class="p-1.5 rounded-lg text-espressoLight hover:bg-latte">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm">
+        <div class="bg-white rounded-xl p-3.5 border border-sandBorder space-y-1.5">
+          <div class="font-bold text-mocha text-sm">🏨 住宿安排</div>
+          <p><strong>12/6–12/8（東京）：</strong>Hotel Keihan Tokyo Yotsuya（東京四谷京阪飯店，新宿区四谷1-24）</p>
+          <p><strong>12/9–12/10（七尾）：</strong>Hotel Route Inn Nanao Ekihigashi（七尾市本府中町ハ31-1）</p>
+          <p><strong>12/11（東京）：</strong>東京住宿（下午自能登/金澤返回東京）</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-3.5 border border-sandBorder space-y-1.5">
+          <div class="font-bold text-mocha text-sm">📞 重點窗口與出席人員</div>
+          <p><strong>12/7 上午 防災士機構/協會/研修中心：</strong>窗口 大崎部長</p>
+          <p><strong>12/7 14:45 神田川地下調節池：</strong>丸之內線「方南町站」剪票口集合｜窗口：尾身 亮介 課長｜出席：牛嶋 築 危機管理監、前田 泰伯 復興擔當部長</p>
+          <p><strong>12/8 東京消防廳/防災館：</strong>窗口：佐伯先生（千代田區大手町1-3-5）｜18:00 餐敘 Tenshige：石川昭政 眾議員、岩澤秘書、玉田先生</p>
+          <p><strong>12/9 石川縣廳：</strong>10:30–11:30｜窗口：淺見和希 主任｜出席：石川縣危機管理部長、危機管理政策課長</p>
+          <p><strong>12/10 能登勘查：</strong>包車窗口 森崎伸二郎｜白丸：神田區長導覽｜寶立：宮口智美導覽</p>
+          <p><strong>12/11 能登鐵道：</strong>窗口 東井 豊記 先生｜語り部列車與社長談話</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button type="button" onclick="closeQuickInfoModal()" class="px-5 py-2 rounded-xl bg-mocha text-cream font-bold text-sm hover:bg-mochaDark transition">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 路線圖 / 圖片全螢幕放大查看 Lightbox ==================== -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 hidden bg-espresso/90 flex flex-col">
+    <div class="flex items-center justify-between px-4 py-3 bg-espresso/95 text-cream border-b border-white/10">
+      <div id="lightboxTitle" class="text-sm sm:text-base font-bold truncate pr-2">路線圖預覽</div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button type="button" onclick="adjustZoom(-0.25)" class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-bold" title="縮小">
+          <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </button>
+        <span id="zoomPercentLabel" class="text-xs font-bold min-w-[44px] text-center">100%</span>
+        <button type="button" onclick="adjustZoom(0.25)" class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-bold" title="放大">
+          <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </button>
+        <button type="button" onclick="resetZoom()" class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-bold">
+          重設
+        </button>
+        <button type="button" onclick="closeLightbox()" class="px-3 py-1.5 rounded-lg bg-mocha text-cream hover:bg-mochaDark text-xs font-bold">
+          <i class="fa-solid fa-xmark mr-1"></i>關閉
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="lightboxStage"
+      class="lightbox-stage flex-1 relative overflow-hidden flex items-center justify-center p-4 select-none"
+      onmousedown="startPan(event)"
+      onmousemove="movePan(event)"
+      onmouseup="endPan()"
+      onmouseleave="endPan()"
+      ontouchstart="handleTouchStart(event)"
+      ontouchmove="handleTouchMove(event)"
+      ontouchend="handleTouchEnd()"
+    >
+      <div id="lightboxCanvas" class="transition-transform duration-75 ease-out max-w-full max-h-full flex items-center justify-center">
+        <!-- 動態放入 SVG 或 IMG -->
+      </div>
+    </div>
+
+    <div class="py-2 px-4 text-center text-xs text-cream/80 bg-espresso/95">
+      提示：可按放大/縮小按鈕，或在圖片上拖曳平移查看細節。
+    </div>
+  </div>
+
+  <!-- ==================== 確認重設 Modal（取代 confirm） ==================== -->
+  <div id="resetConfirmModal" class="fixed inset-0 z-50 hidden bg-espresso/50 flex items-center justify-center p-4">
+    <div class="bg-cream border border-sandBorder rounded-2xl max-w-sm w-full p-5 shadow-xl space-y-4">
+      <h3 class="text-base font-bold text-espresso flex items-center gap-2">
+        <i class="fa-solid fa-triangle-exclamation text-mocha"></i>
+        <span>重設為預設考察行程？</span>
+      </h3>
+      <p class="text-xs sm:text-sm text-espressoLight leading-relaxed">
+        這會將行程順序與內容還原為 12/6–12/12 預設考察資料（已上傳的地鐵圖與自訂景點將保留或可一併重設）。確定要還原嗎？
+      </p>
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeResetConfirm()" class="px-4 py-2 rounded-xl bg-latte text-espresso text-sm font-bold">
+          取消
+        </button>
+        <button type="button" onclick="confirmResetAll()" class="px-4 py-2 rounded-xl bg-mocha text-cream text-sm font-bold hover:bg-mochaDark">
+          確定重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. 預設資料（12/6–12/12 赴日防災考察手冊）
+    // =========================================================================
+    const STORAGE_KEYS = {
+      ITINERARY: 'japan_bousai_itinerary_v1',
+      SUBWAY_UPLOADS: 'japan_bousai_subway_uploads_v1',
+      PLACES: 'japan_bousai_places_v1'
+    };
+
+    const DAY_META = {
+      '12/6': { label: '12/6（日）', hotel: 'Hotel Keihan Tokyo Yotsuya（東京四谷京阪飯店，新宿区四谷1-24）', focus: '出發移動日・調整日' },
+      '12/7': { label: '12/7（一）', hotel: 'Hotel Keihan Tokyo Yotsuya（東京四谷京阪飯店）', focus: '防災士機構交流 × 神田川地下調節池' },
+      '12/8': { label: '12/8（二）', hotel: 'Hotel Keihan Tokyo Yotsuya（東京四谷京阪飯店）', focus: '東京消防廳 × 東京防災館 × 晚間餐敘' },
+      '12/9': { label: '12/9（三）', hotel: 'Hotel Route Inn Nanao Ekihigashi（七尾市本府中町ハ31-1）', focus: '北陸新幹線赴金澤 × 石川縣廳拜會 × 轉往七尾' },
+      '12/10': { label: '12/10（四）', hotel: 'Hotel Route Inn Nanao Ekihigashi（七尾市本府中町ハ31-1）', focus: '能登半島震災現地勘查（輪島・白丸・寶立・和倉）' },
+      '12/11': { label: '12/11（五）', hotel: '東京住宿（自金澤/能登返回東京）', focus: '能登鐵道「震災語り部列車」× 社長談話 × 返京' },
+      '12/12': { label: '12/12（六）', hotel: '歸國返台', focus: '成田機場 → 桃園國際機場' }
+    };
+
+    const DEFAULT_ITINERARY = [
+      // 12/6
+      {
+        id: 'd6-1',
+        date: '12/6',
+        depart: '依航班時段',
+        arrive: '依航班時段',
+        transport: '國際航班',
+        title: '桃園國際機場 → 日本成田機場（出發移動日・調整日）',
+        contactGift: '無公開拜會｜清點伴手禮與簡報資料',
+        notes: '抵達日本後前往新宿區四谷入住 Hotel Keihan Tokyo Yotsuya，調整行程並確認次日集合動線。'
+      },
+      // 12/7
+      {
+        id: 'd7-1',
+        date: '12/7',
+        depart: '上午待確認',
+        arrive: '上午待確認',
+        transport: '東京市區交通',
+        title: '拜會日本防災士機構、日本防災士協會、防災士研修中心',
+        contactGift: '窗口：大崎部長｜建議準備機構/協會致意禮品',
+        notes: '交流議題：防災士回訓機制、維持活躍度、回到社區如何與自主防災組織/町內會對接運用、講師審查與成效評估。'
+      },
+      {
+        id: 'd7-2',
+        date: '12/7',
+        depart: '14:45 集合',
+        arrive: '16:00 結束',
+        transport: '東京地下鐵丸之內線＋步行約10分',
+        title: '神田川・環狀七號線地下調節池 / 善福寺川取水設施管理棟1樓會議室',
+        contactGift: '出席：牛嶋 築 危機管理監、前田 泰伯 復興擔當部長｜窗口：尾身 亮介 課長',
+        notes: '14:45 於東京地下鐵丸之內線「方南町站」剪票口集合（僅1處剪票口），尾身課長或接待同仁帶領前往。'
+      },
+      // 12/8
+      {
+        id: 'd8-1',
+        date: '12/8',
+        depart: '11:00',
+        arrive: '11:30',
+        transport: '東京地鐵／步行',
+        title: '東京消防廳本部（千代田區大手町1-3-5）',
+        contactGift: '窗口：佐伯先生｜致贈東京消防廳幹部禮品與窗口小禮',
+        notes: '考察東京都推動城市與市町村防災宣導實務、資源配置差異，以及高齡者與外國人多元溝通策略。'
+      },
+      {
+        id: 'd8-2',
+        date: '12/8',
+        depart: '15:00',
+        arrive: '16:45',
+        transport: '東京地鐵',
+        title: '東京防災館防災體驗',
+        contactGift: '窗口：佐伯先生協調',
+        notes: '體驗地震、煙霧、VR等防災教育設施與民眾實境宣導模式。'
+      },
+      {
+        id: 'd8-3',
+        date: '12/8',
+        depart: '18:00',
+        arrive: '晚間',
+        transport: '東京市區移動',
+        title: '晚餐餐敘（Tenshige）',
+        contactGift: '出席：石川昭政 眾議員、岩澤秘書、玉田先生｜準備議員主禮與同行禮品',
+        notes: '與石川昭政眾議員及岩澤秘書、玉田先生餐敘交流台日防災與地方治理經驗。'
+      },
+      // 12/9
+      {
+        id: 'd9-1',
+        date: '12/9',
+        depart: '06:45 飯店出發',
+        arrive: '09:44 抵金澤（參考07:24–09:44）',
+        transport: '計程車／地鐵＋北陸新幹線',
+        title: '東京四谷飯店出發 → 北陸新幹線前往金澤',
+        contactGift: '自行搭車移動（建議提早劃位指定席）',
+        notes: '06:45 自四谷京阪飯店出發前往東京站搭乘北陸新幹線往金澤，銜接上午縣廳行程。'
+      },
+      {
+        id: 'd9-2',
+        date: '12/9',
+        depart: '10:30',
+        arrive: '11:30',
+        transport: '金澤市區接駁',
+        title: '拜會石川縣廳 / 業務說明',
+        contactGift: '出席：石川縣危機管理部長、危機管理政策課長｜窗口：淺見和希 主任',
+        notes: '交流議題：廣域支援與「支援而非替代」機制、複合型災害情境模擬、災區劃定與救助特例、法規排除與道之驛防災據點運作。'
+      },
+      {
+        id: 'd9-3',
+        date: '12/9',
+        depart: '下午時段',
+        arrive: '傍晚抵七尾',
+        transport: 'JR／能登鐵路',
+        title: '下午轉鐵路往七尾 → 入住 Hotel Route Inn Nanao Ekihigashi',
+        contactGift: '住宿：七尾市本府中町ハ31-1',
+        notes: '自金澤轉乘鐵路前往七尾市，辦理入住並整裝準備翌日能登半島現地勘查。'
+      },
+      // 12/10
+      {
+        id: 'd10-1',
+        date: '12/10',
+        depart: '09:00',
+        arrive: '17:00',
+        transport: '包車（窗口：森崎伸二郎）',
+        title: '能登半島震災現地勘查：輪島市朝市火災遺跡、白丸地區、寶立地區、和倉溫泉',
+        contactGift: '白丸：神田區長導覽｜寶立：宮口智美導覽｜包車窗口：森崎伸二郎',
+        notes: '重點了解和倉溫泉旅館業者在震度6強、斷水與護岸崩塌下達成2,000名旅客「零受傷」疏散及72小時物資共享經驗。'
+      },
+      // 12/11
+      {
+        id: 'd11-1',
+        date: '12/11',
+        depart: '10:00 七尾發',
+        arrive: '10:45 抵穴水',
+        transport: '能登鐵道 普通列車 601D',
+        title: '能登鐵道「震災語り部列車」去程（七尾 10:00 → 穴水 10:45）',
+        contactGift: '窗口：能登鐵道 東井 豊記 先生',
+        notes: '搭乘普通列車 601D 自七尾站前往穴水站。'
+      },
+      {
+        id: 'd11-2',
+        date: '12/11',
+        depart: '約 11:00',
+        arrive: '約 11:50',
+        transport: '穴水站座談',
+        title: '能登鐵道社長談話交流',
+        contactGift: '出席：能登鐵道社長｜窗口：東井 豊記 先生（備社長主禮與窗口小禮）',
+        notes: '探討地震發生時行駛中列車與大津波警報之乘務員 SOP、乘客高台疏散引導，以及語り部列車構想與防災教育合作。'
+      },
+      {
+        id: 'd11-3',
+        date: '12/11',
+        depart: '12:09 穴水發',
+        arrive: '12:54 返七尾（下午返京）',
+        transport: '震災故事講述觀光列車 2 號 → 鐵路/新幹線返東京',
+        title: '回程搭乘震災故事講述觀光列車 2 號（穴水 12:09–七尾 12:54）→ 下午返回金澤後往東京',
+        contactGift: '住宿：東京住宿',
+        notes: '體驗回程語り部列車後，下午經金澤搭乘新幹線返回東京住宿。'
+      },
+      // 12/12
+      {
+        id: 'd12-1',
+        date: '12/12',
+        depart: '依航班時段',
+        arrive: '依航班時段',
+        transport: '國際航班',
+        title: '日本成田機場 → 桃園國際機場（歸國移動）',
+        contactGift: '彙整日方資料與名片',
+        notes: '圓滿完成本次赴日防災考察行程，平安返台。'
+      }
+    ];
+
+    const DEFAULT_PLACES = [
+      {
+        id: 'p-1',
+        name: '神田川・環狀七號線地下調節池（善福寺川取水設施）',
+        category: '景點',
+        area: '東京',
+        foodTag: '無適用',
+        note: '12/7 14:45 丸之內線「方南町站」剪票口集合（杉並區堀之內2-1-1）',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=善福寺川取水施設+方南町駅'
+      },
+      {
+        id: 'p-2',
+        name: '東京消防廳本部',
+        category: '景點',
+        area: '東京',
+        foodTag: '無適用',
+        note: '12/8 11:00–11:30｜東京都千代田區大手町1-3-5',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=東京消防庁+大手町1-3-5'
+      },
+      {
+        id: 'p-3',
+        name: '東京防災館（本所防災館）',
+        category: '景點',
+        area: '東京',
+        foodTag: '無適用',
+        note: '12/8 15:00–16:45｜防災體驗設施',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=本所防災館+東京'
+      },
+      {
+        id: 'p-4',
+        name: 'Tenshige（12/8 晚間餐敘餐廳）',
+        category: '餐廳',
+        area: '東京',
+        foodTag: '非牛肉料理',
+        note: '12/8 18:00 餐敘（石川昭政眾議員、岩澤秘書、玉田先生）',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tenshige+Tokyo'
+      },
+      {
+        id: 'p-5',
+        name: '石川縣政府（石川県庁）',
+        category: '景點',
+        area: '金澤',
+        foodTag: '無適用',
+        note: '12/9 10:30–11:30 拜會危機管理部（金澤市鞍月1-1）',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=石川県庁'
+      },
+      {
+        id: 'p-6',
+        name: '輪島市朝市火災遺跡',
+        category: '景點',
+        area: '七尾/輪島/穴水',
+        foodTag: '無適用',
+        note: '12/10 能登半島震災現地勘查重點',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=輪島朝市+石川県'
+      },
+      {
+        id: 'p-7',
+        name: '能登白丸地區',
+        category: '景點',
+        area: '七尾/輪島/穴水',
+        foodTag: '無適用',
+        note: '12/10 神田區長導覽說明',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=白丸+輪島市'
+      },
+      {
+        id: 'p-8',
+        name: '珠洲市寶立地區',
+        category: '景點',
+        area: '七尾/輪島/穴水',
+        foodTag: '無適用',
+        note: '12/10 宮口智美導覽',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=宝立町+珠洲市'
+      },
+      {
+        id: 'p-9',
+        name: '和倉溫泉',
+        category: '景點',
+        area: '七尾/輪島/穴水',
+        foodTag: '海鮮',
+        note: '12/10 震災疏散與復原勘查（七尾市和倉町）',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=和倉温泉'
+      },
+      {
+        id: 'p-10',
+        name: '能登鐵道 穴水站／七尾站',
+        category: '景點',
+        area: '七尾/輪島/穴水',
+        foodTag: '無適用',
+        note: '12/11 10:00 七尾發 → 10:45 穴水；12:09 穴水發 → 12:54 返七尾',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=のと鉄道+穴水駅'
+      },
+      {
+        id: 'p-11',
+        name: '近江町市場海鮮食堂（金澤移動補給參考）',
+        category: '餐廳',
+        area: '金澤',
+        foodTag: '海鮮',
+        note: '金澤站周邊特色海鮮料理參考',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=近江町市場+海鮮+金沢'
+      },
+      {
+        id: 'p-12',
+        name: '新宿／東京車站伴手禮與逛街區',
+        category: '逛街',
+        area: '東京',
+        foodTag: '點心/伴手禮',
+        note: '四谷／新宿／東京站周邊採買與日常補給',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=東京駅+一番街+お土産'
+      },
+      {
+        id: 'p-13',
+        name: '東京蔬食／精進料理參考店',
+        category: '素食',
+        area: '東京',
+        foodTag: '蔬食/素食',
+        note: '可依同行人員飲食需求查詢蔬食／素食選項',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=vegan+vegetarian+Tokyo+Station'
+      },
+      {
+        id: 'p-14',
+        name: '金澤和菓子茶點店',
+        category: '點心',
+        area: '金澤',
+        foodTag: '點心/伴手禮',
+        note: '金澤茶屋街與市區傳統和菓子點心',
+        mapsUrl: 'https://www.google.com/maps/search/?api=1&query=金沢+和菓子+カフェ'
+      }
+    ];
+
+    // 內建 SVG 路線圖定義
+    const BUILTIN_MAPS = [
+      {
+        id: 'map-marunouchi-honancho',
+        title: '12/7 下午集合動線：東京地下鐵丸之內線（方南町站）',
+        subtitle: '14:45 方南町站剪票口（僅1處）集合 → 步行約10分至善福寺川取水設施',
+        svg: `
+          <svg viewBox="0 0 640 280" class="w-full h-auto bg-[#FAF6F0] rounded-xl border border-sandBorder" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="280" fill="#FAF6F0"/>
+            <text x="24" y="34" font-size="16" font-weight="bold" fill="#3B2F26">東京地下鐵 丸之內線（方南町支線）示意圖</text>
+            <!-- 線路 -->
+            <line x1="60" y1="120" x2="580" y2="120" stroke="#D9383A" stroke-width="8" stroke-linecap="round"/>
+            <!-- 站點 1 -->
+            <circle cx="95" cy="120" r="10" fill="#FFFFFF" stroke="#D9383A" stroke-width="4"/>
+            <text x="95" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#3B2F26">中野坂上</text>
+            <text x="95" y="168" text-anchor="middle" font-size="11" fill="#635246">接主線往四谷/新宿</text>
+            <!-- 站點 2 -->
+            <circle cx="235" cy="120" r="9" fill="#FFFFFF" stroke="#D9383A" stroke-width="4"/>
+            <text x="235" y="150" text-anchor="middle" font-size="13" fill="#3B2F26">中野富士見町</text>
+            <!-- 站點 3 -->
+            <circle cx="365" cy="120" r="9" fill="#FFFFFF" stroke="#D9383A" stroke-width="4"/>
+            <text x="365" y="150" text-anchor="middle" font-size="13" fill="#3B2F26">中野新橋</text>
+            <!-- 重點集合站：方南町 -->
+            <circle cx="515" cy="120" r="14" fill="#8C6A4A" stroke="#FAF6F0" stroke-width="3"/>
+            <text x="515" y="92" text-anchor="middle" font-size="14" font-weight="bold" fill="#8C6A4A">★ 14:45 集合點</text>
+            <text x="515" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#3B2F26">方南町站</text>
+            <text x="515" y="168" text-anchor="middle" font-size="11" fill="#635246">剪票口僅1處・步行約10分</text>
+            <!-- 底部提示 -->
+            <rect x="24" y="202" width="592" height="54" rx="10" fill="#F2EAE0" stroke="#E3D5C5"/>
+            <text x="40" y="225" font-size="12" font-weight="bold" fill="#3B2F26">會場：神田川・環狀七號線地下調節池（善福寺川取水設施管理棟1樓會議室）</text>
+            <text x="40" y="244" font-size="12" fill="#635246">出席：牛嶋 築 危機管理監、前田 泰伯 復興擔當部長｜窗口：尾身 亮介 課長（已加 LINE）</text>
+          </svg>
+        `
+      },
+      {
+        id: 'map-shinkansen-noto',
+        title: '12/9–12/11 跨區移動與能登鐵道動線示意',
+        subtitle: '東京（四谷）→ 北陸新幹線 → 金澤 → 七尾／穴水（語り部列車）→ 返東京',
+        svg: `
+          <svg viewBox="0 0 640 280" class="w-full h-auto bg-[#FAF6F0] rounded-xl border border-sandBorder" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="280" fill="#FAF6F0"/>
+            <text x="24" y="34" font-size="16" font-weight="bold" fill="#3B2F26">12/9–12/11 東京 ⇄ 金澤 ⇄ 七尾・穴水 動線圖</text>
+            <!-- 新幹線線段 -->
+            <line x1="80" y1="115" x2="270" y2="115" stroke="#1D4ED8" stroke-width="7" stroke-linecap="round"/>
+            <!-- 鐵路轉乘 -->
+            <line x1="270" y1="115" x2="430" y2="115" stroke="#8C6A4A" stroke-width="6" stroke-dasharray="8 5"/>
+            <!-- 能登鐵道 -->
+            <line x1="430" y1="115" x2="565" y2="115" stroke="#C2410C" stroke-width="6" stroke-linecap="round"/>
+
+            <circle cx="80" cy="115" r="10" fill="#1D4ED8"/>
+            <text x="80" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#3B2F26">東京站</text>
+            <text x="80" y="160" text-anchor="middle" font-size="11" fill="#635246">12/9 06:45 飯店發</text>
+
+            <circle cx="270" cy="115" r="10" fill="#8C6A4A"/>
+            <text x="270" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#3B2F26">金澤站</text>
+            <text x="270" y="160" text-anchor="middle" font-size="11" fill="#635246">10:30 石川縣廳</text>
+
+            <circle cx="430" cy="115" r="10" fill="#C2410C"/>
+            <text x="430" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#3B2F26">七尾站</text>
+            <text x="430" y="160" text-anchor="middle" font-size="11" fill="#635246">12/11 10:00 發車</text>
+
+            <circle cx="565" cy="115" r="10" fill="#C2410C"/>
+            <text x="565" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#3B2F26">穴水站</text>
+            <text x="565" y="160" text-anchor="middle" font-size="11" fill="#635246">10:45 到 / 12:09 返</text>
+
+            <text x="175" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#1D4ED8">北陸新幹線</text>
+            <text x="350" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#8C6A4A">鐵路轉乘</text>
+            <text x="498" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#C2410C">能登鐵道</text>
+
+            <rect x="24" y="196" width="592" height="60" rx="10" fill="#F2EAE0" stroke="#E3D5C5"/>
+            <text x="40" y="220" font-size="12" font-weight="bold" fill="#3B2F26">12/10 包車勘查：輪島朝市火災遺跡 → 白丸（神田區長） → 寶立（宮口智美） → 和倉溫泉</text>
+            <text x="40" y="241" font-size="12" fill="#635246">12/11 語り部列車：去程 601D（10:00–10:45）｜社長談話（約11:00–11:50）｜回程 2號（12:09–12:54）→ 下午返京</text>
+          </svg>
+        `
+      }
+    ];
+
+    // =========================================================================
+    // 2. 狀態管理與 localStorage 讀寫
+    // =========================================================================
+    let currentMainTab = 'itinerary';
+    let currentDateFilter = '12/6';
+    let currentPlaceCategory = '全部';
+
+    let itineraryData = [];
+    let subwayUploads = [];
+    let placesData = [];
+
+    function loadFromStorage() {
+      try {
+        const rawItin = localStorage.getItem(STORAGE_KEYS.ITINERARY);
+        itineraryData = rawItin ? JSON.parse(rawItin) : JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+      } catch (e) {
+        itineraryData = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+      }
+
+      try {
+        const rawMaps = localStorage.getItem(STORAGE_KEYS.SUBWAY_UPLOADS);
+        subwayUploads = rawMaps ? JSON.parse(rawMaps) : [];
+      } catch (e) {
+        subwayUploads = [];
+      }
+
+      try {
+        const rawPlaces = localStorage.getItem(STORAGE_KEYS.PLACES);
+        placesData = rawPlaces ? JSON.parse(rawPlaces) : JSON.parse(JSON.stringify(DEFAULT_PLACES));
+      } catch (e) {
+        placesData = JSON.parse(JSON.stringify(DEFAULT_PLACES));
+      }
+    }
+
+    function saveItineraryStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.ITINERARY, JSON.stringify(itineraryData));
+      } catch (e) {
+        showToast('儲存行程時發生空間或瀏覽器限制');
+      }
+    }
+
+    function saveSubwayStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.SUBWAY_UPLOADS, JSON.stringify(subwayUploads));
+      } catch (e) {
+        showToast('圖片檔案過大，無法存入瀏覽器快取，建議選擇較小圖片');
+      }
+    }
+
+    function savePlacesStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.PLACES, JSON.stringify(placesData));
+      } catch (e) {
+        showToast('儲存景點時發生限制');
+      }
+    }
+
+    // 自訂提示訊息（取代 alert）
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const el = document.createElement('div');
+      el.className = 'bg-espresso text-cream text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-lg border border-milktea/40 flex items-center gap-2 transition-all';
+      el.innerHTML = `<i class="fa-solid fa-circle-check text-milktea"></i><span>${escapeHtml(message)}</span>`;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(-8px)';
+        setTimeout(() => el.remove(), 250);
+      }, 2400);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // =========================================================================
+    // 3. 主分頁切換（每日行程 / 地鐵 / 景點）
+    // =========================================================================
+    function switchMainTab(tabName) {
+      currentMainTab = tabName;
+      const tabs = ['itinerary', 'subway', 'places'];
+      tabs.forEach((t) => {
+        const btn = document.getElementById(`mainTab-${t}`);
+        const sec = document.getElementById(`section-${t}`);
+        if (t === tabName) {
+          btn.className = 'py-2.5 px-3 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition handbook-tab-active';
+          sec.classList.remove('hidden');
+        } else {
+          btn.className = 'py-2.5 px-3 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition handbook-tab-inactive';
+          sec.classList.add('hidden');
+        }
+      });
+
+      if (tabName === 'itinerary') renderItinerary();
+      if (tabName === 'subway') renderSubwayGallery();
+      if (tabName === 'places') renderPlaces();
+    }
+
+    // =========================================================================
+    // 4. 每日行程功能（日期篩選、新增、編輯、刪除、上下移動順序）
+    // =========================================================================
+    function renderDateFilterBar() {
+      const bar = document.getElementById('dateFilterBar');
+      const dates = ['12/6', '12/7', '12/8', '12/9', '12/10', '12/11', '12/12', 'ALL'];
+      bar.innerHTML = dates
+        .map((d) => {
+          const active = currentDateFilter === d;
+          const text = d === 'ALL' ? '全部天數' : DAY_META[d].label;
+          return `
+            <button
+              type="button"
+              onclick="selectDateFilter('${d}')"
+              class="shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition ${
+                active ? 'bg-mocha text-cream' : 'bg-latte text-espressoLight hover:bg-milktea/60'
+              }"
+            >
+              ${text}
+            </button>
+          `;
+        })
+        .join('');
+    }
+
+    function selectDateFilter(d) {
+      currentDateFilter = d;
+      renderDateFilterBar();
+      renderItinerary();
+    }
+
+    function renderDayMetaBanner() {
+      const banner = document.getElementById('dayMetaBanner');
+      if (currentDateFilter === 'ALL') {
+        banner.innerHTML = `
+          <div><i class="fa-solid fa-layer-group text-mocha mr-1.5"></i><strong>檢視模式：</strong>全行程（12/6 – 12/12）</div>
+          <div><i class="fa-solid fa-arrows-up-down text-mocha mr-1"></i>可點選卡片右側上下箭頭調整順序</div>
+        `;
+        return;
+      }
+      const meta = DAY_META[currentDateFilter];
+      banner.innerHTML = `
+        <div class="space-y-0.5">
+          <div><i class="fa-solid fa-bullseye text-mocha mr-1.5"></i><strong>本日焦點：</strong>${escapeHtml(meta.focus)}</div>
+          <div><i class="fa-solid fa-bed text-mocha mr-1.5"></i><strong>住宿安排：</strong>${escapeHtml(meta.hotel)}</div>
+        </div>
+        <div class="text-xs bg-latte px-2.5 py-1 rounded-lg self-start sm:self-center">
+          自動儲存至本機手冊
+        </div>
+      `;
+    }
+
+    function renderItinerary() {
+      renderDayMetaBanner();
+      const container = document.getElementById('itineraryListContainer');
+
+      const filteredIndices = itineraryData
+        .map((item, idx) => ({ item, idx }))
+        .filter(({ item }) => currentDateFilter === 'ALL' || item.date === currentDateFilter);
+
+      if (filteredIndices.length === 0) {
+        container.innerHTML = `
+          <div class="handbook-card p-8 text-center space-y-2">
+            <p class="font-bold text-espressoLight">目前此日期尚無行程項目</p>
+            <button type="button" onclick="openItineraryModal('${currentDateFilter === 'ALL' ? '12/6' : currentDateFilter}')" class="px-4 py-2 rounded-xl bg-mocha text-cream text-sm font-bold">
+              + 新增第一筆行程
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filteredIndices
+        .map(({ item, idx }, posInView) => {
+          const isFirstInView = posInView === 0;
+          const isLastInView = posInView === filteredIndices.length - 1;
+          const dayLabel = DAY_META[item.date]?.label || item.date;
+
+          return `
+            <article class="handbook-card p-4 sm:p-5 transition">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1.5 flex-1 min-w-0">
+                  <!-- 日期＋出發/抵達時間＋交通工具 -->
+                  <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                    <span class="px-2.5 py-0.5 rounded-lg bg-milktea text-espresso font-bold">${escapeHtml(dayLabel)}</span>
+                    ${
+                      item.depart || item.arrive
+                        ? `<span class="px-2.5 py-0.5 rounded-lg bg-latte text-espresso font-bold">
+                            <i class="fa-regular fa-clock text-mocha mr-1"></i>${escapeHtml(item.depart || '—')} → ${escapeHtml(item.arrive || '—')}
+                          </span>`
+                        : ''
+                    }
+                    ${
+                      item.transport
+                        ? `<span class="px-2.5 py-0.5 rounded-lg bg-cream border border-sandBorder text-espressoLight font-bold">
+                            <i class="fa-solid fa-car-side text-mocha mr-1"></i>${escapeHtml(item.transport)}
+                          </span>`
+                        : ''
+                    }
+                  </div>
+
+                  <!-- 地點/行程標題 -->
+                  <h3 class="text-base sm:text-lg font-bold text-espresso leading-snug">
+                    ${escapeHtml(item.title)}
+                  </h3>
+
+                  <!-- 出席長官 / 窗口 / 送禮備註 -->
+                  ${
+                    item.contactGift
+                      ? `<p class="text-xs sm:text-sm text-mochaDark font-bold bg-cream/90 px-3 py-1.5 rounded-xl border border-sandBorder/80">
+                          <i class="fa-solid fa-user-tie mr-1.5"></i>${escapeHtml(item.contactGift)}
+                        </p>`
+                      : ''
+                  }
+
+                  <!-- 交流議題與說明 -->
+                  ${
+                    item.notes
+                      ? `<p class="text-xs sm:text-sm text-espressoLight leading-relaxed pt-0.5">
+                          ${escapeHtml(item.notes)}
+                        </p>`
+                      : ''
+                  }
+                </div>
+
+                <!-- 右側操作按鈕：上移、下移、編輯、刪除 -->
+                <div class="flex flex-col gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onclick="moveItineraryItem(${idx}, -1)"
+                    ${isFirstInView ? 'disabled' : ''}
+                    title="向上移動"
+                    class="w-9 h-9 rounded-xl border border-sandBorder flex items-center justify-center text-sm transition ${
+                      isFirstInView ? 'opacity-30 cursor-not-allowed bg-cream' : 'bg-white hover:bg-latte text-espresso active:scale-95'
+                    }"
+                  >
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button
+                    type="button"
+                    onclick="moveItineraryItem(${idx}, 1)"
+                    ${isLastInView ? 'disabled' : ''}
+                    title="向下移動"
+                    class="w-9 h-9 rounded-xl border border-sandBorder flex items-center justify-center text-sm transition ${
+                      isLastInView ? 'opacity-30 cursor-not-allowed bg-cream' : 'bg-white hover:bg-latte text-espresso active:scale-95'
+                    }"
+                  >
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                  <button
+                    type="button"
+                    onclick="openItineraryModal(null, '${item.id}')"
+                    title="編輯行程"
+                    class="w-9 h-9 rounded-xl bg-latte hover:bg-milktea text-espresso flex items-center justify-center text-sm transition active:scale-95"
+                  >
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+                  <button
+                    type="button"
+                    onclick="deleteItineraryItem('${item.id}')"
+                    title="刪除行程"
+                    class="w-9 h-9 rounded-xl bg-white hover:bg-red-50 text-espressoLight hover:text-red-600 border border-sandBorder flex items-center justify-center text-sm transition active:scale-95"
+                  >
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+    }
+
+    function moveItineraryItem(globalIdx, direction) {
+      const targetIdx = globalIdx + direction;
+      if (targetIdx < 0 || targetIdx >= itineraryData.length) return;
+      const temp = itineraryData[globalIdx];
+      itineraryData[globalIdx] = itineraryData[targetIdx];
+      itineraryData[targetIdx] = temp;
+      saveItineraryStorage();
+      renderItinerary();
+      showToast('已更新行程順序');
+    }
+
+    function openItineraryModal(defaultDate = null, editId = null) {
+      const modal = document.getElementById('itineraryModal');
+      const titleEl = document.getElementById('itineraryModalTitle');
+      document.getElementById('itineraryForm').reset();
+
+      if (editId) {
+        const found = itineraryData.find((x) => x.id === editId);
+        if (!found) return;
+        titleEl.textContent = '編輯行程項目';
+        document.getElementById('itinEditId').value = found.id;
+        document.getElementById('itinDate').value = found.date;
+        document.getElementById('itinDepart').value = found.depart || '';
+        document.getElementById('itinArrive').value = found.arrive || '';
+        document.getElementById('itinTransport').value = found.transport || '';
+        document.getElementById('itinTitle').value = found.title || '';
+        document.getElementById('itinContactGift').value = found.contactGift || '';
+        document.getElementById('itinNotes').value = found.notes || '';
+      } else {
+        titleEl.textContent = '新增行程項目';
+        document.getElementById('itinEditId').value = '';
+        const chosenDate = defaultDate || (currentDateFilter === 'ALL' ? '12/6' : currentDateFilter);
+        document.getElementById('itinDate').value = chosenDate;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeItineraryModal() {
+      document.getElementById('itineraryModal').classList.add('hidden');
+    }
+
+    function saveItineraryItem(event) {
+      event.preventDefault();
+      const editId = document.getElementById('itinEditId').value;
+      const payload = {
+        id: editId || `itin-${Date.now()}`,
+        date: document.getElementById('itinDate').value,
+        depart: document.getElementById('itinDepart').value.trim(),
+        arrive: document.getElementById('itinArrive').value.trim(),
+        transport: document.getElementById('itinTransport').value.trim(),
+        title: document.getElementById('itinTitle').value.trim(),
+        contactGift: document.getElementById('itinContactGift').value.trim(),
+        notes: document.getElementById('itinNotes').value.trim()
+      };
+
+      if (!payload.title) return;
+
+      if (editId) {
+        const idx = itineraryData.findIndex((x) => x.id === editId);
+        if (idx !== -1) itineraryData[idx] = payload;
+        showToast('已更新行程內容');
+      } else {
+        itineraryData.push(payload);
+        showToast('已新增行程項目');
+      }
+
+      saveItineraryStorage();
+      closeItineraryModal();
+      renderItinerary();
+    }
+
+    function deleteItineraryItem(id) {
+      itineraryData = itineraryData.filter((x) => x.id !== id);
+      saveItineraryStorage();
+      renderItinerary();
+      showToast('已刪除該筆行程');
+    }
+
+    // =========================================================================
+    // 5. 地鐵分頁功能（內建路線圖 + 上傳圖片 + 全螢幕放大查看）
+    // =========================================================================
+    function renderSubwayGallery() {
+      const gallery = document.getElementById('subwayGallery');
+
+      const builtinCards = BUILTIN_MAPS.map(
+        (m) => `
+          <div class="bg-cream border border-sandBorder rounded-2xl p-3.5 flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <div>
+                  <span class="inline-block px-2 py-0.5 rounded-md bg-milktea text-espresso text-[11px] font-bold mb-1">內建參考圖</span>
+                  <h3 class="font-bold text-sm sm:text-base text-espresso">${escapeHtml(m.title)}</h3>
+                  <p class="text-xs text-espressoLight mt-0.5">${escapeHtml(m.subtitle)}</p>
+                </div>
+              </div>
+              <div onclick="openLightboxSvg('${m.id}')" class="cursor-zoom-in rounded-xl overflow-hidden hover:opacity-95 transition">
+                ${m.svg}
+              </div>
+            </div>
+            <button
+              type="button"
+              onclick="openLightboxSvg('${m.id}')"
+              class="w-full py-2 rounded-xl bg-white hover:bg-latte border border-sandBorder text-xs sm:text-sm font-bold text-espresso flex items-center justify-center gap-1.5 transition"
+            >
+              <i class="fa-solid fa-magnifying-glass-plus text-mocha"></i>
+              <span>放大查看路線圖</span>
+            </button>
+          </div>
+        `
+      );
+
+      const uploadCards = subwayUploads.map(
+        (u) => `
+          <div class="bg-cream border border-sandBorder rounded-2xl p-3.5 flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <div class="min-w-0">
+                  <span class="inline-block px-2 py-0.5 rounded-md bg-mocha/15 text-mochaDark text-[11px] font-bold mb-1">已上傳圖片</span>
+                  <h3 class="font-bold text-sm sm:text-base text-espresso truncate">${escapeHtml(u.name)}</h3>
+                </div>
+                <button
+                  type="button"
+                  onclick="deleteUploadedMap('${u.id}')"
+                  title="移除圖片"
+                  class="px-2.5 py-1 rounded-lg bg-white hover:bg-red-50 text-espressoLight hover:text-red-600 border border-sandBorder text-xs font-bold shrink-0"
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+              <div onclick="openLightboxImage('${u.id}')" class="cursor-zoom-in rounded-xl overflow-hidden bg-white border border-sandBorder h-52 flex items-center justify-center">
+                <img src="${u.dataUrl}" alt="${escapeHtml(u.name)}" class="max-h-full max-w-full object-contain" />
+              </div>
+            </div>
+            <button
+              type="button"
+              onclick="openLightboxImage('${u.id}')"
+              class="w-full py-2 rounded-xl bg-white hover:bg-latte border border-sandBorder text-xs sm:text-sm font-bold text-espresso flex items-center justify-center gap-1.5 transition"
+            >
+              <i class="fa-solid fa-magnifying-glass-plus text-mocha"></i>
+              <span>放大查看圖片</span>
+            </button>
+          </div>
+        `
+      );
+
+      gallery.innerHTML = [...builtinCards, ...uploadCards].join('');
+    }
+
+    function handleSubwayUpload(event) {
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+
+      files.forEach((file) => {
+        if (!file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          subwayUploads.unshift({
+            id: `map-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+            name: file.name,
+            dataUrl: e.target.result
+          });
+          saveSubwayStorage();
+          renderSubwayGallery();
+          showToast(`已上傳「${file.name}」`);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      event.target.value = '';
+    }
+
+    function deleteUploadedMap(id) {
+      subwayUploads = subwayUploads.filter((u) => u.id !== id);
+      saveSubwayStorage();
+      renderSubwayGallery();
+      showToast('已移除上傳圖片');
+    }
+
+    // Lightbox 放大 / 縮小 / 平移邏輯
+    let zoomScale = 1;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+
+    function applyTransform() {
+      const canvas = document.getElementById('lightboxCanvas');
+      canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+      document.getElementById('zoomPercentLabel').textContent = `${Math.round(zoomScale * 100)}%`;
+    }
+
+    function openLightboxSvg(mapId) {
+      const m = BUILTIN_MAPS.find((x) => x.id === mapId);
+      if (!m) return;
+      document.getElementById('lightboxTitle').textContent = m.title;
+      document.getElementById('lightboxCanvas').innerHTML = `<div class="w-[820px] max-w-[92vw]">${m.svg}</div>`;
+      resetZoom();
+      document.getElementById('lightboxModal').classList.remove('hidden');
+    }
+
+    function openLightboxImage(uploadId) {
+      const u = subwayUploads.find((x) => x.id === uploadId);
+      if (!u) return;
+      document.getElementById('lightboxTitle').textContent = u.name;
+      document.getElementById('lightboxCanvas').innerHTML = `<img src="${u.dataUrl}" alt="${escapeHtml(u.name)}" class="max-h-[75vh] max-w-[92vw] object-contain rounded-lg shadow-2xl" />`;
+      resetZoom();
+      document.getElementById('lightboxModal').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.add('hidden');
+    }
+
+    function adjustZoom(delta) {
+      zoomScale = Math.min(4, Math.max(0.5, Number((zoomScale + delta).toFixed(2))));
+      applyTransform();
+    }
+
+    function resetZoom() {
+      zoomScale = 1;
+      panX = 0;
+      panY = 0;
+      applyTransform();
+    }
+
+    function startPan(e) {
+      isDragging = true;
+      dragStartX = e.clientX - panX;
+      dragStartY = e.clientY - panY;
+    }
+
+    function movePan(e) {
+      if (!isDragging) return;
+      panX = e.clientX - dragStartX;
+      panY = e.clientY - dragStartY;
+      applyTransform();
+    }
+
+    function endPan() {
+      isDragging = false;
+    }
+
+    function handleTouchStart(e) {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        dragStartX = e.touches[0].clientX - panX;
+        dragStartY = e.touches[0].clientY - panY;
+      }
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      panX = e.touches[0].clientX - dragStartX;
+      panY = e.touches[0].clientY - dragStartY;
+      applyTransform();
+    }
+
+    function handleTouchEnd() {
+      isDragging = false;
+    }
+
+    // =========================================================================
+    // 6. 景點分頁功能（分類、區域、餐點種類標籤篩選＋新增＋Google Maps 連結）
+    // =========================================================================
+    const PLACE_CATEGORIES = ['全部', '景點', '餐廳', '逛街', '素食', '點心'];
+
+    function renderPlaceCategoryBar() {
+      const bar = document.getElementById('placeCategoryBar');
+      bar.innerHTML = PLACE_CATEGORIES.map((cat) => {
+        const active = currentPlaceCategory === cat;
+        return `
+          <button
+            type="button"
+            onclick="selectPlaceCategory('${cat}')"
+            class="shrink-0 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition ${
+              active ? 'bg-mocha text-cream' : 'bg-latte text-espressoLight hover:bg-milktea/60'
+            }"
+          >
+            ${cat}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectPlaceCategory(cat) {
+      currentPlaceCategory = cat;
+      renderPlaceCategoryBar();
+      renderPlaces();
+    }
+
+    function renderPlaces() {
+      const areaFilter = document.getElementById('placeAreaSelect').value;
+      const foodTagFilter = document.getElementById('placeFoodTagSelect').value;
+      const container = document.getElementById('placesListContainer');
+
+      const filtered = placesData.filter((p) => {
+        const matchCat = currentPlaceCategory === '全部' || p.category === currentPlaceCategory;
+        const matchArea = areaFilter === '全部' || p.area === areaFilter;
+        const matchFood = foodTagFilter === '全部' || p.foodTag === foodTagFilter;
+        return matchCat && matchArea && matchFood;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="handbook-card p-8 text-center col-span-full space-y-2">
+            <p class="font-bold text-espressoLight">目前篩選條件下沒有符合的地點</p>
+            <button type="button" onclick="resetPlaceFilters()" class="px-4 py-2 rounded-xl bg-latte text-espresso text-xs sm:text-sm font-bold">
+              清除篩選條件
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered
+        .map(
+          (p) => `
+            <article class="handbook-card p-4 flex flex-col justify-between gap-3">
+              <div class="space-y-2">
+                <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                  <span class="px-2.5 py-0.5 rounded-lg bg-milktea text-espresso font-bold">${escapeHtml(p.category)}</span>
+                  <span class="px-2.5 py-0.5 rounded-lg bg-latte text-espresso font-bold">
+                    <i class="fa-solid fa-location-pin text-mocha mr-1"></i>${escapeHtml(p.area)}
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-lg bg-cream border border-sandBorder text-espressoLight font-bold">
+                    <i class="fa-solid fa-utensils text-mocha mr-1"></i>${escapeHtml(p.foodTag || '無適用')}
+                  </span>
+                </div>
+
+                <h3 class="text-base font-bold text-espresso leading-snug">${escapeHtml(p.name)}</h3>
+                ${p.note ? `<p class="text-xs sm:text-sm text-espressoLight leading-relaxed">${escapeHtml(p.note)}</p>` : ''}
+              </div>
+
+              <div class="pt-2 border-t border-sandBorder/70 flex items-center justify-between gap-2">
+                <a
+                  href="${escapeHtml(p.mapsUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex-1 py-2 px-3 rounded-xl bg-mocha hover:bg-mochaDark text-cream text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  <span>開啟 Google Maps</span>
+                </a>
+                <button
+                  type="button"
+                  onclick="deletePlaceItem('${p.id}')"
+                  title="移除地點"
+                  class="px-3 py-2 rounded-xl bg-cream hover:bg-red-50 text-espressoLight hover:text-red-600 border border-sandBorder text-xs font-bold transition"
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </article>
+          `
+        )
+        .join('');
+    }
+
+    function resetPlaceFilters() {
+      currentPlaceCategory = '全部';
+      document.getElementById('placeAreaSelect').value = '全部';
+      document.getElementById('placeFoodTagSelect').value = '全部';
+      renderPlaceCategoryBar();
+      renderPlaces();
+    }
+
+    function openPlaceModal() {
+      document.getElementById('placeForm').reset();
+      document.getElementById('placeModal').classList.remove('hidden');
+    }
+
+    function closePlaceModal() {
+      document.getElementById('placeModal').classList.add('hidden');
+    }
+
+    function savePlaceItem(event) {
+      event.preventDefault();
+      const name = document.getElementById('placeName').value.trim();
+      if (!name) return;
+      const category = document.getElementById('placeCategory').value;
+      const area = document.getElementById('placeArea').value;
+      const foodTag = document.getElementById('placeFoodTag').value;
+      const note = document.getElementById('placeNote').value.trim();
+
+      placesData.unshift({
+        id: `place-${Date.now()}`,
+        name,
+        category,
+        area,
+        foodTag,
+        note,
+        mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + area)}`
+      });
+
+      savePlacesStorage();
+      closePlaceModal();
+      renderPlaces();
+      showToast(`已新增地點「${name}」`);
+    }
+
+    function deletePlaceItem(id) {
+      placesData = placesData.filter((p) => p.id !== id);
+      savePlacesStorage();
+      renderPlaces();
+      showToast('已移除該地點');
+    }
+
+    // =========================================================================
+    // 7. 住宿與窗口總覽 Modal & 重設功能
+    // =========================================================================
+    function openQuickInfoModal() {
+      document.getElementById('quickInfoModal').classList.remove('hidden');
+    }
+
+    function closeQuickInfoModal() {
+      document.getElementById('quickInfoModal').classList.add('hidden');
+    }
+
+    function openResetConfirm() {
+      document.getElementById('resetConfirmModal').classList.remove('hidden');
+    }
+
+    function closeResetConfirm() {
+      document.getElementById('resetConfirmModal').classList.add('hidden');
+    }
+
+    function confirmResetAll() {
+      itineraryData = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+      placesData = JSON.parse(JSON.stringify(DEFAULT_PLACES));
+      saveItineraryStorage();
+      savePlacesStorage();
+      closeResetConfirm();
+      renderItinerary();
+      renderPlaces();
+      showToast('已還原為 12/6–12/12 預設考察資料');
+    }
+
+    // =========================================================================
+    // 8. 初始化
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      loadFromStorage();
+      renderDateFilterBar();
+      renderItinerary();
+      renderSubwayGallery();
+      renderPlaceCategoryBar();
+      renderPlaces();
+    });
+  </script>
+</body>
+</html>
